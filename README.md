@@ -1,6 +1,3 @@
-Claro, aquí tienes el contenido convertido a formato Markdown sin HTML y traducido al español:
-
----
 
 # Klipper Installation And Update Helper
 
@@ -170,5 +167,3 @@ Un agradecimiento especial a JetBrains por patrocinar este proyecto con su incre
 [![JetBrains Logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.png)](https://www.jetbrains.com/community/opensource/#support)
 
 ---
-
-Espero que esto te sea útil. Si necesitas algo más, no dudes en preguntar.
