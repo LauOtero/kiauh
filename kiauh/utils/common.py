@@ -41,12 +41,11 @@ from utils.sys_utils import (
 
 
 def get_kiauh_version() -> str:
-    """
-    Método auxiliar para obtener la versión actual de KIAUH leyendo la última etiqueta
-    :return: cadena de la última etiqueta
-    """
-    lastest_tag: str = get_local_tags(Path(__file__).parent.parent)[-1]
-    return lastest_tag
+    tags = get_local_tags(Path(__file__).parent.parent)
+    if not tags:
+        return "unknown"
+    # Validación adicional para asegurar que hay tags
+    return tags[-1] if tags else "unknown"
 
 
 def convert_camelcase_to_kebabcase(name: str) -> str:

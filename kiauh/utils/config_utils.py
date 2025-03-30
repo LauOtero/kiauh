@@ -21,85 +21,79 @@ from utils.instance_type import InstanceType
 
 OpcionConfig = Tuple[str, str]
 
-
-def agregar_seccion_config(
-    seccion: str,
-    instancias: List[InstanceType],
-    opciones: List[OpcionConfig] | None = None,
-) -> None:
-    if not instancias:
+def add_config_section(section: str, instances: List[InstanceType],
+                       options: List[ConfigOption] | None = None) -> None:
+    if not instances:
         return
 
-    for instancia in instancias:
-        archivo_cfg = instancia.cfg_file
+    for instance in instances:
+        cfg_file = instance.cfg_file
         Logger.print_status(f"Agregando sección '[{seccion}]' a '{archivo_cfg}' ...")
 
-        if not Path(archivo_cfg).exists():
-            Logger.print_warn(f"'{archivo_cfg}' no encontrado!")
+        if not Path(cfg_file).exists():
+            Logger.print_warn(f"'{cfg_file}' no encontrado!!")
             continue
 
         scp = SimpleConfigParser()
-        scp.read_file(archivo_cfg)
-        if scp.has_section(seccion):
+        scp.read_file(cfg_file)
+        if scp.has_section(section):
             Logger.print_info("La sección ya existe. Omitiendo ...")
             continue
 
-        scp.add_section(seccion)
+        scp.add_section(section)
 
-        if opciones is not None:
-            for opcion in reversed(opciones):
-                scp.set_option(seccion, opcion[0], opcion[1])
+        if options is not None:
+            for option in reversed(options):
+                scp.set_option(section, option[0], option[1])
 
-        scp.write_file(archivo_cfg)
+        scp.write_file(cfg_file)
 
-        Logger.print_ok("¡OK!")
+        Logger.print_ok("OK!")
 
 
-def agregar_seccion_config_arriba(seccion: str, instancias: List[InstanceType]) -> None:
+def add_config_section_at_top(section: str, instances: List[InstanceType]) -> None:
     # TODO: this could be implemented natively in SimpleConfigParser
-    for instancia in instancias:
+    for instance in instances:
         tmp_cfg = tempfile.NamedTemporaryFile(mode="w", delete=False)
-        ruta_tmp_cfg = Path(tmp_cfg.name)
+        tmp_cfg_path = Path(tmp_cfg.name)
         scp = SimpleConfigParser()
-        scp.read_file(ruta_tmp_cfg)
-        scp.add_section(seccion)
-        scp.write_file(ruta_tmp_cfg)
+        scp.read_file(tmp_cfg_path)
+        scp.add_section(section)
+        scp.write_file(tmp_cfg_path)
         tmp_cfg.close()
 
-        archivo_cfg = instancia.cfg_file
-        with open(archivo_cfg, "r") as org:
-            contenido_org = org.readlines()
-        with open(ruta_tmp_cfg, "a") as tmp:
-            tmp.writelines(contenido_org)
+        cfg_file = instance.cfg_file
+        with open(cfg_file, "r") as org:
+            org_content = org.readlines()
+        with open(tmp_cfg_path, "a") as tmp:
+            tmp.writelines(org_content)
 
-        archivo_cfg.unlink()
-        shutil.move(ruta_tmp_cfg, archivo_cfg)
+        cfg_file.unlink()
+        shutil.move(tmp_cfg_path, cfg_file)
 
-        Logger.print_ok("¡OK!")
+        Logger.print_ok("OK!")
 
 
-def eliminar_seccion_config(
-    seccion: str, instancias: List[InstanceType]
-) -> List[InstanceType]:
-    eliminado_de: List[instancias] = []
-    for instancia in instancias:
-        archivo_cfg = instancia.cfg_file
-        Logger.print_status(f"Eliminando sección '[{seccion}]' de '{archivo_cfg}' ...")
+def remove_config_section(section: str, instances: List[InstanceType]) -> List[InstanceType]:
+    removed_from: List[instances] = []
+    for instance in instances:
+        cfg_file = instance.cfg_file
+        Logger.print_status(f"Eliminando sección '[{section}]' de '{cfg_file}' ...")
 
-        if not Path(archivo_cfg).exists():
-            Logger.print_warn(f"'{archivo_cfg}' no encontrado!")
+        if not Path(cfg_file).exists():
+            Logger.print_warn(f"'{cfg_file}' no encontrado!")
             continue
 
         scp = SimpleConfigParser()
-        scp.read_file(archivo_cfg)
-        if not scp.has_section(seccion):
+        scp.read_file(cfg_file)
+        if not scp.has_section(section):
             Logger.print_info("La sección no existe. Omitiendo ...")
             continue
 
-        scp.remove_section(seccion)
-        scp.write_file(archivo_cfg)
+        scp.remove_section(section)
+        scp.write_file(cfg_file)
 
-        eliminado_de.append(instancia)
-        Logger.print_ok("¡OK!")
+        removed_from.append(instance)
+        Logger.print_ok("OK!")
 
-    return eliminado_de
+    return removed_from
