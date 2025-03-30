@@ -3,10 +3,10 @@
 #=======================================================================#
 # Copyright (C) 2020 - 2024 Dominik Willner <th33xitus@gmail.com>       #
 #                                                                       #
-# This file is part of KIAUH - Klipper Installation And Update Helper   #
+# Este archivo es parte de KIAUH - Asistente de Instalación y Actualización de Klipper   #
 # https://github.com/dw-0/kiauh                                         #
 #                                                                       #
-# This file may be distributed under the terms of the GNU GPLv3 license #
+# Este archivo puede distribuirse bajo los términos de la licencia GNU GPLv3 #
 #=======================================================================#
 
 set -e
@@ -25,12 +25,12 @@ for script in "${KIAUH_SRCDIR}/scripts/ui/"*.sh; do . "${script}"; done
 #===================================================#
 
 function update_kiauh() {
-  status_msg "Updating KIAUH ..."
+  status_msg "Actualizando KIAUH ..."
 
   cd "${KIAUH_SRCDIR}"
   git reset --hard && git pull
 
-  ok_msg "Update complete! Please restart KIAUH."
+  ok_msg "¡Actualización completada! Por favor reinicie KIAUH."
   exit 0
 }
 
@@ -69,13 +69,13 @@ function save_startup_version() {
 function kiauh_update_dialog() {
   [[ ! $(kiauh_update_avail) == "true" ]] && return
   top_border
-  echo -e "|${green}              New KIAUH update available!              ${white}|"
+  echo -e "|${green}         ¡Nueva actualización de KIAUH disponible!         ${white}|"
   hr
-  echo -e "|${green}  View Changelog: https://git.io/JnmlX                 ${white}|"
+  echo -e "|${green}  Ver Cambios: https://git.io/JnmlX                     ${white}|"
   blank_line
-  echo -e "|${yellow}  It is recommended to keep KIAUH up to date. Updates  ${white}|"
-  echo -e "|${yellow}  usually contain bugfixes, important changes or new   ${white}|"
-  echo -e "|${yellow}  features. Please consider updating!                  ${white}|"
+  echo -e "|${yellow}  Se recomienda mantener KIAUH actualizado. Las          ${white}|"
+  echo -e "|${yellow}  actualizaciones usualmente contienen correcciones,    ${white}|"
+  echo -e "|${yellow}  cambios importantes o nuevas características.          ${white}|"
   bottom_border
 
   local yn
@@ -123,22 +123,22 @@ function main() {
     launch_kiauh_v6
   else
     top_border
-    echo -e "|         ${green}KIAUH v6.0.0-alpha1 is available now!${white}         |"
+    echo -e "|         ${green}¡KIAUH v6.0.0-alpha1 está disponible ahora!${white}         |"
     hr
-    echo -e "|         View Changelog: ${magenta}https://git.io/JnmlX${white}          |"
+    echo -e "|         Ver Cambios: ${magenta}https://git.io/JnmlX${white}          |"
     blank_line
-    echo -e "| KIAUH v6 was completely rewritten from the ground up. |"
-    echo -e "| It's based on Python 3.8 and has many improvements.   |"
+    echo -e "| KIAUH v6 fue completamente reescrito desde cero.      |"
+    echo -e "| Está basado en Python 3.8 y tiene muchas mejoras.      |"
     blank_line
-    echo -e "| ${yellow}NOTE: Version 6 is still in alpha, so bugs may occur!${white} |"
-    echo -e "| ${yellow}Yet, your feedback and bug reports are very much${white}      |"
-    echo -e "| ${yellow}appreciated and will help finalize the release.${white}       |"
+    echo -e "| ${yellow}NOTA: La versión 6 sigue en alpha, ¡puede tener errores!${white} |"
+    echo -e "| ${yellow}Aún así, tus comentarios y reportes de errores son     ${white}|"
+    echo -e "| ${yellow}muy apreciados y ayudarán a finalizar el lanzamiento.${white} |"
     hr
-    echo -e "| Would you like to try out KIAUH v6?                   |"
-    echo -e "| 1) Yes                                                |"
+    echo -e "| ¿Te gustaría probar KIAUH v6?                        |"
+    echo -e "| 1) Sí                                                 |"
     echo -e "| 2) No                                                 |"
-    echo -e "| 3) Yes, remember my choice for next time              |"
-    echo -e "| 4) No, remember my choice for next time               |"
+    echo -e "| 3) Sí, recordar mi elección para la próxima vez       |"
+    echo -e "| 4) No, recordar mi elección para la próxima vez       |"
     quit_footer
     while true; do
       read -p "${cyan}###### Select action:${white} " -e input
@@ -158,7 +158,7 @@ function main() {
           launch_kiauh_v5
           break;;
         Q|q)
-          echo -e "${green}###### Happy printing! ######${white}"; echo
+          echo -e "${green}###### ¡Felices impresiones! ######${white}"; echo
           exit 0;;
         *)
           error_msg "Invalid Input!\n";;

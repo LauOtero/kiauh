@@ -22,25 +22,24 @@ class GitException(Exception):
 
 
 def git_clone_wrapper(
-    repo: str, target_dir: Path, branch: str | None = None, force: bool = False
-) -> None:
+    repo: str, target_dir: Path, branch: str | None = None, force: bool = False) -> None:
     """
-    Clones a repository from the given URL and checks out the specified branch if given.
-    The clone will be performed with the '--filter=blob:none' flag to perform a blobless clone.
+    Clona un repositorio desde la URL dada y verifica la rama especificada si se proporciona.
+    La clonación se realizará con la bandera '--filter=blob:none' para realizar una clonación sin blobs.
 
-    :param repo: The URL of the repository to clone.
-    :param branch: The branch to check out. If None, master or main, no checkout will be performed.
-    :param target_dir: The directory where the repository will be cloned.
-    :param force: Force the cloning of the repository even if it already exists.
+    :param repo: La URL del repositorio a clonar.
+    :param branch: La rama a verificar. Si es None, master o main, no se realizará verificación.
+    :param target_dir: El directorio donde se clonará el repositorio.
+    :param force: Forzar la clonación del repositorio incluso si ya existe.
     :return: None
     """
-    log = f"Cloning repository from '{repo}'"
+    log = f"Clonando repositorio desde '{repo}'"
     Logger.print_status(log)
     try:
         if Path(target_dir).exists():
-            question = f"'{target_dir}' already exists. Overwrite?"
+            question = f"'{target_dir}' ya existe. ¿Sobrescribir?"
             if not force and not get_confirm(question, default_choice=False):
-                Logger.print_info("Skip cloning of repository ...")
+                Logger.print_info("Omitiendo clonación del repositorio ...")
                 return
             shutil.rmtree(target_dir)
 
@@ -50,36 +49,36 @@ def git_clone_wrapper(
             git_cmd_checkout(branch, target_dir)
 
     except CalledProcessError:
-        log = "An unexpected error occured during cloning of the repository."
+        log = "Ocurrió un error inesperado durante la clonación del repositorio."
         Logger.print_error(log)
         raise GitException(log)
     except OSError as e:
-        Logger.print_error(f"Error removing existing repository: {e.strerror}")
-        raise GitException(f"Error removing existing repository: {e.strerror}")
+        Logger.print_error(f"Error al eliminar el repositorio existente: {e.strerror}")
+        raise GitException(f"Error al eliminar el repositorio existente: {e.strerror}")
 
 
 def git_pull_wrapper(repo: str, target_dir: Path) -> None:
     """
-    A function that updates a repository using git pull.
+    Una función que actualiza un repositorio usando git pull.
 
-    :param repo: The repository to update.
-    :param target_dir: The directory of the repository.
+    :param repo: El repositorio a actualizar.
+    :param target_dir: El directorio del repositorio.
     :return: None
     """
-    Logger.print_status(f"Updating repository '{repo}' ...")
+    Logger.print_status(f"Actualizando repositorio '{repo}' ...")
     try:
         git_cmd_pull(target_dir)
     except CalledProcessError:
-        log = "An unexpected error occured during updating the repository."
+        log = "Ocurrió un error inesperado durante la actualización del repositorio."
         Logger.print_error(log)
         return
 
 
 def get_repo_name(repo: Path) -> Tuple[str, str]:
     """
-    Helper method to extract the organisation and name of a repository |
-    :param repo: repository to extract the values from
-    :return: String in form of "<orga>/<name>" or None
+    Método auxiliar para extraer la organización y nombre de un repositorio |
+    :param repo: repositorio del cual extraer los valores
+    :return: Cadena en forma de "<orga>/<nombre>" o None
     """
     if not repo.exists() or not repo.joinpath(".git").exists():
         return "-", "-"
@@ -100,9 +99,9 @@ def get_repo_name(repo: Path) -> Tuple[str, str]:
 
 def get_current_branch(repo: Path) -> str:
     """
-    Get the current branch of a local Git repository
-    :param repo: Path to the local Git repository
-    :return: Current branch
+    Obtiene la rama actual de un repositorio Git local
+    :param repo: Ruta al repositorio Git local
+    :return: Rama actual
     """
     try:
         cmd = ["git", "branch", "--show-current"]
@@ -117,10 +116,10 @@ def get_current_branch(repo: Path) -> str:
 
 def get_local_tags(repo_path: Path, _filter: str | None = None) -> List[str]:
     """
-    Get all tags of a local Git repository
-    :param repo_path: Path to the local Git repository
-    :param _filter: Optional filter to filter the tags by
-    :return: List of tags
+    Obtiene todas las etiquetas de un repositorio Git local
+    :param repo_path: Ruta al repositorio Git local
+    :param _filter: Filtro opcional para filtrar las etiquetas
+    :return: Lista de etiquetas
     """
     try:
         cmd: List[str] = ["git", "tag", "-l"]
@@ -147,9 +146,9 @@ def get_local_tags(repo_path: Path, _filter: str | None = None) -> List[str]:
 
 def get_remote_tags(repo_path: str) -> List[str]:
     """
-    Gets the tags of a GitHub repostiory
-    :param repo_path: path of the GitHub repository - e.g. `<owner>/<name>`
-    :return: List of tags
+    Obtiene las etiquetas de un repositorio GitHub
+    :param repo_path: ruta del repositorio GitHub - ej. `<propietario>/<nombre>`
+    :return: Lista de etiquetas
     """
     try:
         url = f"https://api.github.com/repos/{repo_path}/tags"
@@ -157,22 +156,22 @@ def get_remote_tags(repo_path: str) -> List[str]:
             response: HTTPResponse = r
             if response.getcode() != 200:
                 Logger.print_error(
-                    f"Error retrieving tags: HTTP status code {response.getcode()}"
+                    f"Error al recuperar etiquetas: código de estado HTTP {response.getcode()}"
                 )
                 return []
 
             data = json.loads(response.read())
             return [item["name"] for item in data]
     except (JSONDecodeError, TypeError) as e:
-        Logger.print_error(f"Error while processing the response: {e}")
+        Logger.print_error(f"Error al procesar la respuesta: {e}")
         raise
 
 
 def get_latest_remote_tag(repo_path: str) -> str:
     """
-    Gets the latest stable tag of a GitHub repostiory
-    :param repo_path: path of the GitHub repository - e.g. `<owner>/<name>`
-    :return: tag or empty string
+    Obtiene la última etiqueta estable de un repositorio GitHub
+    :param repo_path: ruta del repositorio GitHub - ej. `<propietario>/<nombre>`
+    :return: etiqueta o cadena vacía
     """
     try:
         if len(latest_tag := get_remote_tags(repo_path)) > 0:
@@ -185,9 +184,9 @@ def get_latest_remote_tag(repo_path: str) -> str:
 
 def get_latest_unstable_tag(repo_path: str) -> str:
     """
-    Gets the latest unstable (alpha, beta, rc) tag of a GitHub repository
-    :param repo_path: path of the GitHub repository - e.g. `<owner>/<name>`
-    :return: tag or empty string
+    Obtiene la última etiqueta inestable (alpha, beta, rc) de un repositorio GitHub
+    :param repo_path: ruta del repositorio GitHub - ej. `<propietario>/<nombre>`
+    :return: etiqueta o cadena vacía
     """
     try:
         if (
@@ -198,17 +197,17 @@ def get_latest_unstable_tag(repo_path: str) -> str:
         else:
             return ""
     except Exception:
-        Logger.print_error("Error while getting the latest unstable tag")
+        Logger.print_error("Error al obtener la última etiqueta inestable")
         raise
 
 
 def compare_semver_tags(tag1: str, tag2: str) -> bool:
     """
-    Compare two semver version strings.
-    Does not support comparing pre-release versions (e.g. 1.0.0-rc.1, 1.0.0-beta.1)
-    :param tag1: First version string
-    :param tag2: Second version string
-    :return: True if tag1 is greater than tag2, False otherwise
+    Compara dos cadenas de versión semver.
+    No admite la comparación de versiones preliminares (ej. 1.0.0-rc.1, 1.0.0-beta.1)
+    :param tag1: Primera cadena de versión
+    :param tag2: Segunda cadena de versión
+    :return: True si tag1 es mayor que tag2, False en caso contrario
     """
     if tag1 == tag2:
         return False
@@ -261,11 +260,11 @@ def get_remote_commit(repo: Path) -> str | None:
 
 def git_cmd_clone(repo: str, target_dir: Path, blobless: bool = False) -> None:
     """
-    Clones a repository with optional blobless clone.
+    Clona un repositorio con clonación sin blobs opcional.
 
-    :param repo: URL of the repository to clone.
-    :param target_dir: Path where the repository will be cloned.
-    :param blobless: If True, perform a blobless clone by adding the '--filter=blob:none' flag.
+    :param repo: URL del repositorio a clonar.
+    :param target_dir: Ruta donde se clonará el repositorio.
+    :param blobless: Si es True, realiza una clonación sin blobs agregando la bandera '--filter=blob:none'.
     """
     try:
         command = ["git", "clone"]
@@ -276,10 +275,10 @@ def git_cmd_clone(repo: str, target_dir: Path, blobless: bool = False) -> None:
         command += [repo, target_dir.as_posix()]
 
         run(command, check=True)
-        Logger.print_ok("Clone successful!")
+        Logger.print_ok("¡Clonación exitosa!")
     except CalledProcessError as e:
-        error = e.stderr.decode() if e.stderr else "Unknown error"
-        log = f"Error cloning repository {repo}: {error}"
+        error = e.stderr.decode() if e.stderr else "Error desconocido"
+        log = f"Error al clonar repositorio {repo}: {error}"
         Logger.print_error(log)
         raise
 
@@ -292,9 +291,9 @@ def git_cmd_checkout(branch: str | None, target_dir: Path) -> None:
         command = ["git", "checkout", f"{branch}"]
         run(command, cwd=target_dir, check=True)
 
-        Logger.print_ok("Checkout successful!")
+        Logger.print_ok("¡Checkout exitoso!")
     except CalledProcessError as e:
-        log = f"Error checking out branch {branch}: {e.stderr.decode()}"
+        log = f"Error al hacer checkout de la rama {branch}: {e.stderr.decode()}"
         Logger.print_error(log)
         raise
 
@@ -304,27 +303,27 @@ def git_cmd_pull(target_dir: Path) -> None:
         command = ["git", "pull"]
         run(command, cwd=target_dir, check=True)
     except CalledProcessError as e:
-        log = f"Error on git pull: {e.stderr.decode()}"
+        log = f"Error en git pull: {e.stderr.decode()}"
         Logger.print_error(log)
         raise
 
 
 def rollback_repository(repo_dir: Path, instance: Type[InstanceType]) -> None:
-    q1 = "How many commits do you want to roll back"
+    q1 = "¿Cuántos commits desea revertir?"
     amount = get_number_input(q1, 1, allow_go_back=True)
 
     instances = get_instances(instance)
 
-    Logger.print_warn("Do not continue if you have ongoing prints!", start="\n")
+    Logger.print_warn("¡No continúe si tiene impresiones en curso!", start="\n")
     Logger.print_warn(
-        f"All currently running {instance.__name__} services will be stopped!"
+        f"¡Todos los servicios de {instance.__name__} actualmente en ejecución serán detenidos!"
     )
     if not get_confirm(
-        f"Roll back {amount} commit{'s' if amount > 1 else ''}",
+        f"Revert {amount} {'commits' if amount > 1 else 'commit'}",
         default_choice=False,
         allow_go_back=True,
     ):
-        Logger.print_info("Aborting roll back ...")
+        Logger.print_info("Abortando reversión ...")
         return
 
     InstanceManager.stop_all(instances)
@@ -332,8 +331,8 @@ def rollback_repository(repo_dir: Path, instance: Type[InstanceType]) -> None:
     try:
         cmd = ["git", "reset", "--hard", f"HEAD~{amount}"]
         run(cmd, cwd=repo_dir, check=True, stdout=PIPE, stderr=PIPE)
-        Logger.print_ok(f"Rolled back {amount} commits!", start="\n")
+        Logger.print_ok(f"¡Se revirtieron {amount} commits!", start="\n")
     except CalledProcessError as e:
-        Logger.print_error(f"An error occured during repo rollback:\n{e}")
+        Logger.print_error(f"Ocurrió un error durante la reversión del repositorio:\n{e}")
 
     InstanceManager.start_all(instances)

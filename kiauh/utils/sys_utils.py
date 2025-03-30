@@ -1,10 +1,10 @@
 # ======================================================================= #
 #  Copyright (C) 2020 - 2025 Dominik Willner <th33xitus@gmail.com>        #
 #                                                                         #
-#  This file is part of KIAUH - Klipper Installation And Update Helper    #
+#  Este archivo es parte de KIAUH - Klipper Installation And Update Helper #
 #  https://github.com/dw-0/kiauh                                          #
 #                                                                         #
-#  This file may be distributed under the terms of the GNU GPLv3 license  #
+#  Este archivo puede distribuirse bajo los términos de la licencia GNU GPLv3 #
 # ======================================================================= #
 from __future__ import annotations
 
@@ -45,37 +45,37 @@ class VenvCreationFailedException(Exception):
 
 def kill(opt_err_msg: str = "") -> None:
     """
-    Kills the application |
-    :param opt_err_msg: an optional, additional error message
+    Termina la aplicación |
+    :param opt_err_msg: un mensaje de error adicional opcional
     :return: None
     """
 
     if opt_err_msg:
         Logger.print_error(opt_err_msg)
-    Logger.print_error("A critical error has occured. KIAUH was terminated.")
+    Logger.print_error("Ocurrió un error crítico. KIAUH fue terminado.")
     sys.exit(1)
 
 
 def check_python_version(major: int, minor: int) -> bool:
     """
-    Checks the python version and returns True if it's at least the given version
-    :param major: the major version to check
-    :param minor: the minor version to check
+    Verifica la versión de Python y devuelve True si es al menos la versión dada
+    :param major: la versión mayor a verificar
+    :param minor: la versión menor a verificar
     :return: bool
     """
     if not (sys.version_info.major >= major and sys.version_info.minor >= minor):
-        Logger.print_error("Versioncheck failed!")
-        Logger.print_error(f"Python {major}.{minor} or newer required.")
+        Logger.print_error("La verificación de la versión falló!")
+        Logger.print_error(f"Se requiere Python {major}.{minor} o superior.")
         return False
     return True
 
 
 def parse_packages_from_file(source_file: Path) -> List[str]:
     """
-    Read the package names from bash scripts, when defined like:
+    Lee los nombres de los paquetes desde scripts bash, cuando están definidos como:
     PKGLIST="package1 package2 package3" |
-    :param source_file: path of the sourcefile to read from
-    :return: A list of package names
+    :param source_file: ruta del archivo fuente del que leer
+    :return: Una lista de nombres de paquetes
     """
 
     packages = []
@@ -97,15 +97,15 @@ def create_python_venv(
     allow_access_to_system_site_packages: bool = False,
 ) -> bool:
     """
-    Create a python 3 virtualenv at the provided target destination.
-    Returns True if the virtualenv was created successfully.
-    Returns False if the virtualenv already exists, recreation was declined or creation failed.
-    :param target: Path where to create the virtualenv at
-    :param force: Force recreation of the virtualenv
-    :param allow_access_to_system_site_packages: give the virtual environment access to the system site-packages dir
+    Crea un entorno virtual de Python 3 en el destino proporcionado.
+    Devuelve True si el entorno virtual se creó con éxito.
+    Devuelve False si el entorno virtual ya existe, la recreación fue declinada o la creación falló.
+    :param target: Ruta donde crear el entorno virtual
+    :param force: Forzar la recreación del entorno virtual
+    :param allow_access_to_system_site_packages: dar al entorno virtual acceso al directorio de site-packages del sistema
     :return: bool
     """
-    Logger.print_status("Set up Python virtual environment ...")
+    Logger.print_status("Configurando entorno virtual de Python ...")
     cmd = ["virtualenv", "-p", "/usr/bin/python3", target.as_posix()]
     cmd.append(
         "--system-site-packages"
@@ -113,16 +113,16 @@ def create_python_venv(
     if not target.exists():
         try:
             run(cmd, check=True)
-            Logger.print_ok("Setup of virtualenv successful!")
+            Logger.print_ok("Configuración del entorno virtual exitosa!")
             return True
         except CalledProcessError as e:
-            Logger.print_error(f"Error setting up virtualenv:\n{e}")
+            Logger.print_error(f"Error configurando el entorno virtual:\n{e}")
             return False
     else:
         if not force and not get_confirm(
-            "Virtualenv already exists. Re-create?", default_choice=False
+            "El entorno virtual ya existe. ¿Recrear?", default_choice=False
         ):
-            Logger.print_info("Skipping re-creation of virtualenv ...")
+            Logger.print_info("Saltando la recreación del entorno virtual ...")
             return False
 
         try:
@@ -130,53 +130,51 @@ def create_python_venv(
             create_python_venv(target)
             return True
         except OSError as e:
-            log = f"Error removing existing virtualenv: {e.strerror}"
+            log = f"Error eliminando el entorno virtual existente: {e.strerror}"
             Logger.print_error(log, False)
             return False
-
-
 def update_python_pip(target: Path) -> None:
     """
-    Updates pip in the provided target destination |
-    :param target: Path of the virtualenv
+    Actualiza pip en el destino proporcionado |
+    :param target: Ruta del entorno virtual
     :return: None
     """
-    Logger.print_status("Updating pip ...")
+    Logger.print_status("Actualizando pip ...")
     try:
         pip_location: Path = target.joinpath("bin/pip")
         pip_exists: bool = check_file_exist(pip_location)
 
         if not pip_exists:
-            raise FileNotFoundError("Error updating pip! Not found.")
+            raise FileNotFoundError("Error actualizando pip! No encontrado.")
 
         command = [pip_location.as_posix(), "install", "-U", "pip"]
         result = run(command, stderr=PIPE, text=True)
         if result.returncode != 0 or result.stderr:
             Logger.print_error(f"{result.stderr}", False)
-            Logger.print_error("Updating pip failed!")
+            Logger.print_error("La actualización de pip falló!")
             return
 
-        Logger.print_ok("Updating pip successful!")
+        Logger.print_ok("Actualización de pip exitosa!")
     except FileNotFoundError as e:
         Logger.print_error(e)
         raise
     except CalledProcessError as e:
-        Logger.print_error(f"Error updating pip:\n{e.output.decode()}")
+        Logger.print_error(f"Error actualizando pip:\n{e.output.decode()}")
         raise
 
 
 def install_python_requirements(target: Path, requirements: Path) -> None:
     """
-    Installs the python packages based on a provided requirements.txt |
-    :param target: Path of the virtualenv
-    :param requirements: Path to the requirements.txt file
+    Instala los paquetes de Python basados en un archivo requirements.txt proporcionado |
+    :param target: Ruta del entorno virtual
+    :param requirements: Ruta al archivo requirements.txt
     :return: None
     """
     try:
-        # always update pip before installing requirements
+        # siempre actualiza pip antes de instalar los requisitos
         update_python_pip(target)
 
-        Logger.print_status("Installing Python requirements ...")
+        Logger.print_status("Instalando requisitos de Python ...")
         command = [
             target.joinpath("bin/pip").as_posix(),
             "install",
@@ -187,28 +185,28 @@ def install_python_requirements(target: Path, requirements: Path) -> None:
 
         if result.returncode != 0 or result.stderr:
             Logger.print_error(f"{result.stderr}", False)
-            raise VenvCreationFailedException("Installing Python requirements failed!")
+            raise VenvCreationFailedException("La instalación de los requisitos de Python falló!")
 
-        Logger.print_ok("Installing Python requirements successful!")
+        Logger.print_ok("Instalación de requisitos de Python exitosa!")
 
     except Exception as e:
-        log = f"Error installing Python requirements: {e}"
+        log = f"Error instalando requisitos de Python: {e}"
         Logger.print_error(log)
         raise VenvCreationFailedException(log)
 
 
 def install_python_packages(target: Path, packages: List[str]) -> None:
     """
-    Installs the python packages based on a provided packages list |
-    :param target: Path of the virtualenv
-    :param packages: str list of required packages
+    Instala los paquetes de Python basados en una lista de paquetes proporcionada |
+    :param target: Ruta del entorno virtual
+    :param packages: lista de cadenas de paquetes requeridos
     :return: None
     """
     try:
-        # always update pip before installing requirements
+        # siempre actualiza pip antes de instalar los requisitos
         update_python_pip(target)
 
-        Logger.print_status("Installing Python requirements ...")
+        Logger.print_status("Instalando requisitos de Python ...")
         command = [
             target.joinpath("bin/pip").as_posix(),
             "install",
@@ -219,21 +217,21 @@ def install_python_packages(target: Path, packages: List[str]) -> None:
 
         if result.returncode != 0 or result.stderr:
             Logger.print_error(f"{result.stderr}", False)
-            raise VenvCreationFailedException("Installing Python requirements failed!")
+            raise VenvCreationFailedException("La instalación de los requisitos de Python falló!")
 
-        Logger.print_ok("Installing Python requirements successful!")
+        Logger.print_ok("Instalación de requisitos de Python exitosa!")
 
     except Exception as e:
-        log = f"Error installing Python requirements: {e}"
+        log = f"Error instalando requisitos de Python: {e}"
         Logger.print_error(log)
         raise VenvCreationFailedException(log)
 
 
 def update_system_package_lists(silent: bool, rls_info_change=False) -> None:
     """
-    Updates the systems package list |
-    :param silent: Log info to the console or not
-    :param rls_info_change: Flag for "--allow-releaseinfo-change"
+    Actualiza la lista de paquetes del sistema |
+    :param silent: Registrar información en la consola o no
+    :param rls_info_change: Bandera para "--allow-releaseinfo-change"
     :return: None
     """
     cache_mtime: float = 0
@@ -246,13 +244,13 @@ def update_system_package_lists(silent: bool, rls_info_change=False) -> None:
             cache_mtime = max(cache_mtime, os.path.getmtime(cache_file))
 
     update_age = int(time.time() - cache_mtime)
-    update_interval = 6 * 3600  # 48hrs
+    update_interval = 6 * 3600  # 48 horas
 
     if update_age <= update_interval:
         return
 
     if not silent:
-        Logger.print_status("Updating package list...")
+        Logger.print_status("Actualizando lista de paquetes...")
 
     try:
         command = ["sudo", "apt-get", "update"]
@@ -262,19 +260,17 @@ def update_system_package_lists(silent: bool, rls_info_change=False) -> None:
         result = run(command, stderr=PIPE, text=True)
         if result.returncode != 0 or result.stderr:
             Logger.print_error(f"{result.stderr}", False)
-            Logger.print_error("Updating system package list failed!")
+            Logger.print_error("La actualización de la lista de paquetes del sistema falló!")
             return
 
-        Logger.print_ok("System package list update successful!")
+        Logger.print_ok("Actualización de la lista de paquetes del sistema exitosa!")
     except CalledProcessError as e:
-        Logger.print_error(f"Error updating system package list:\n{e.stderr.decode()}")
+        Logger.print_error(f"Error actualizando la lista de paquetes del sistema:\n{e.stderr.decode()}")
         raise
-
-
 def get_upgradable_packages() -> List[str]:
     """
-    Reads all system packages that can be upgraded.
-    :return: A list of package names available for upgrade
+    Lee todos los paquetes del sistema que pueden ser actualizados.
+    :return: Una lista de nombres de paquetes disponibles para actualizar
     """
     try:
         command = ["apt", "list", "--upgradable"]
@@ -287,14 +283,14 @@ def get_upgradable_packages() -> List[str]:
             pkglist.append(pkg)
         return pkglist
     except CalledProcessError as e:
-        raise Exception(f"Error reading upgradable packages: {e}")
+        raise Exception(f"Error leyendo paquetes actualizables: {e}")
 
 
 def check_package_install(packages: Set[str]) -> List[str]:
     """
-    Checks the system for installed packages |
-    :param packages: List of strings of package names
-    :return: A list containing the names of packages that are not installed
+    Verifica el sistema para paquetes instalados |
+    :param packages: Lista de cadenas de nombres de paquetes
+    :return: Una lista que contiene los nombres de paquetes que no están instalados
     """
     not_installed = []
     for package in packages:
@@ -313,8 +309,8 @@ def check_package_install(packages: Set[str]) -> List[str]:
 
 def install_system_packages(packages: List[str]) -> None:
     """
-    Installs a list of system packages |
-    :param packages: List of system package names
+    Instala una lista de paquetes del sistema |
+    :param packages: Lista de nombres de paquetes del sistema
     :return: None
     """
     try:
@@ -323,16 +319,16 @@ def install_system_packages(packages: List[str]) -> None:
             command.append(pkg)
         run(command, stderr=PIPE, check=True)
 
-        Logger.print_ok("Packages successfully installed.")
+        Logger.print_ok("Paquetes instalados con éxito.")
     except CalledProcessError as e:
-        Logger.print_error(f"Error installing packages:\n{e.stderr.decode()}")
+        Logger.print_error(f"Error instalando paquetes:\n{e.stderr.decode()}")
         raise
 
 
 def upgrade_system_packages(packages: List[str]) -> None:
     """
-    Updates a list of system packages |
-    :param packages: List of system package names
+    Actualiza una lista de paquetes del sistema |
+    :param packages: Lista de nombres de paquetes del sistema
     :return: None
     """
     try:
@@ -341,23 +337,23 @@ def upgrade_system_packages(packages: List[str]) -> None:
             command.append(pkg)
         run(command, stderr=PIPE, check=True)
 
-        Logger.print_ok("Packages successfully upgraded.")
+        Logger.print_ok("Paquetes actualizados con éxito.")
     except CalledProcessError as e:
-        raise Exception(f"Error upgrading packages:\n{e.stderr.decode()}")
+        raise Exception(f"Error actualizando paquetes:\n{e.stderr.decode()}")
 
 
-# this feels hacky and not quite right, but for now it works
-# see: https://stackoverflow.com/questions/166506/finding-local-ip-addresses-using-pythons-stdlib
+# esto se siente algo hacky y no muy correcto, pero por ahora funciona
+# ver: https://stackoverflow.com/questions/166506/finding-local-ip-addresses-using-pythons-stdlib
 def get_ipv4_addr() -> str:
     """
-    Helper function that returns the IPv4 of the current machine
-    by opening a socket and sending a package to an arbitrary IP. |
-    :return: Local IPv4 of the current machine
+    Función auxiliar que devuelve la dirección IPv4 de la máquina actual
+    abriendo un socket y enviando un paquete a una IP arbitraria. |
+    :return: Dirección IPv4 local de la máquina actual
     """
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.settimeout(0)
     try:
-        # doesn't even have to be reachable
+        # no necesita ser alcanzable
         s.connect(("192.255.255.255", 1))
         return str(s.getsockname()[0])
     except Exception:
@@ -368,10 +364,10 @@ def get_ipv4_addr() -> str:
 
 def download_file(url: str, target: Path, show_progress=True) -> None:
     """
-    Helper method for downloading files from a provided URL |
-    :param url: the url to the file
-    :param target: the target path incl filename
-    :param show_progress: show download progress or not
+    Método auxiliar para descargar archivos desde una URL proporcionada |
+    :param url: la URL del archivo
+    :param target: la ruta objetivo incluyendo el nombre del archivo
+    :param show_progress: mostrar progreso de descarga o no
     :return: None
     """
     try:
@@ -381,22 +377,20 @@ def download_file(url: str, target: Path, show_progress=True) -> None:
         else:
             urllib.request.urlretrieve(url, target)
     except urllib.error.HTTPError as e:
-        Logger.print_error(f"Download failed! HTTP error occured: {e}")
+        Logger.print_error(f"Descarga fallida! Ocurrió un error HTTP: {e}")
         raise
     except urllib.error.URLError as e:
-        Logger.print_error(f"Download failed! URL error occured: {e}")
+        Logger.print_error(f"Descarga fallida! Ocurrió un error de URL: {e}")
         raise
     except Exception as e:
-        Logger.print_error(f"Download failed! An error occured: {e}")
+        Logger.print_error(f"Descarga fallida! Ocurrió un error: {e}")
         raise
-
-
 def download_progress(block_num, block_size, total_size) -> None:
     """
-    Reporthook method for urllib.request.urlretrieve() method call in download_file() |
+    Método de informe para la llamada al método urllib.request.urlretrieve() en download_file() |
     :param block_num:
     :param block_size:
-    :param total_size: total filesize in bytes
+    :param total_size: tamaño total del archivo en bytes
     :return: None
     """
     downloaded = block_num * block_size
@@ -404,17 +398,17 @@ def download_progress(block_num, block_size, total_size) -> None:
     mb = 1024 * 1024
     progress = int(percent / 5)
     remaining = "-" * (20 - progress)
-    dl = f"\rDownloading: [{'#' * progress}{remaining}]{percent:.2f}% ({downloaded / mb:.2f}/{total_size / mb:.2f}MB)"
+    dl = f"\rDescargando: [{'#' * progress}{remaining}]{percent:.2f}% ({downloaded / mb:.2f}/{total_size / mb:.2f}MB)"
     sys.stdout.write(dl)
     sys.stdout.flush()
 
 
 def set_nginx_permissions() -> None:
     """
-    Check if permissions of the users home directory
-    grant execution rights to group and other and set them if not set.
-    Required permissions for NGINX to be able to serve Mainsail/Fluidd.
-    This seems to have become necessary with Ubuntu 21+. |
+    Verifica si los permisos del directorio principal del usuario
+    conceden derechos de ejecución al grupo y a otros y los establece si no están configurados.
+    Permisos requeridos para que NGINX pueda servir Mainsail/Fluidd.
+    Esto parece haberse vuelto necesario con Ubuntu 21+. |
     :return: None
     """
     cmd = f"ls -ld {Path.home()} | cut -d' ' -f1"
@@ -422,24 +416,24 @@ def set_nginx_permissions() -> None:
     permissions = homedir_perm.stdout
 
     if permissions.count("x") < 3:
-        Logger.print_status("Granting NGINX the required permissions ...")
+        Logger.print_status("Concediendo los permisos requeridos a NGINX ...")
         run(["chmod", "og+x", Path.home()])
-        Logger.print_ok("Permissions granted.")
+        Logger.print_ok("Permisos concedidos.")
 
 
 def cmd_sysctl_service(name: str, action: SysCtlServiceAction) -> None:
     """
-    Helper method to execute several actions for a specific systemd service. |
-    :param name: the service name
-    :param action: Either "start", "stop", "restart" or "disable"
+    Método auxiliar para ejecutar varias acciones para un servicio systemd específico. |
+    :param name: el nombre del servicio
+    :param action: Puede ser "start", "stop", "restart" o "disable"
     :return: None
     """
     try:
         Logger.print_status(f"{action.capitalize()} {name} ...")
         run(["sudo", "systemctl", action, name], stderr=PIPE, check=True)
-        Logger.print_ok("OK!")
+        Logger.print_ok("¡OK!")
     except CalledProcessError as e:
-        log = f"Failed to {action} {name}: {e.stderr.decode()}"
+        log = f"Fallo al {action} {name}: {e.stderr.decode()}"
         Logger.print_error(log)
         raise
 
@@ -448,7 +442,7 @@ def cmd_sysctl_manage(action: SysCtlManageAction) -> None:
     try:
         run(["sudo", "systemctl", action], stderr=PIPE, check=True)
     except CalledProcessError as e:
-        log = f"Failed to run {action}: {e.stderr.decode()}"
+        log = f"Fallo al ejecutar {action}: {e.stderr.decode()}"
         Logger.print_error(log)
         raise
 
@@ -457,11 +451,11 @@ def unit_file_exists(
     name: str, suffix: Literal["service", "timer"], exclude: List[str] | None = None
 ) -> bool:
     """
-    Checks if a systemd unit file of the provided suffix exists.
-    :param name: the name of the unit file
-    :param suffix: suffix of the unit file, either "service" or "timer"
-    :param exclude: List of strings of names to exclude
-    :return: True if the unit file exists, False otherwise
+    Verifica si existe un archivo de unidad systemd del sufijo proporcionado.
+    :param name: el nombre del archivo de unidad
+    :param suffix: sufijo del archivo de unidad, puede ser "service" o "timer"
+    :param exclude: Lista de cadenas de nombres a excluir
+    :return: True si el archivo de unidad existe, False en caso contrario
     """
     exclude = exclude or []
     pattern = re.compile(f"^{name}(-[0-9a-zA-Z]+)?.{suffix}$")
@@ -475,8 +469,8 @@ def unit_file_exists(
 
 def log_process(process: Popen) -> None:
     """
-    Helper method to print stdout of a process in near realtime to the console.
-    :param process: Process to log the output from
+    Método auxiliar para imprimir el stdout de un proceso en tiempo casi real en la consola.
+    :param process: Proceso del que se desea registrar la salida
     :return: None
     """
     while True:
@@ -494,12 +488,11 @@ def log_process(process: Popen) -> None:
         if process.poll() is not None:
             break
 
-
 def create_service_file(name: str, content: str) -> None:
     """
-    Creates a service file at the provided path with the provided content.
-    :param name: the name of the service file
-    :param content: the content of the service file
+    Crea un archivo de servicio en la ruta proporcionada con el contenido proporcionado.
+    :param name: el nombre del archivo de servicio
+    :param content: el contenido del archivo de servicio
     :return: None
     """
     try:
@@ -509,52 +502,52 @@ def create_service_file(name: str, content: str) -> None:
             stdout=DEVNULL,
             check=True,
         )
-        Logger.print_ok(f"Service file created: {SYSTEMD.joinpath(name)}")
+        Logger.print_ok(f"Archivo de servicio creado: {SYSTEMD.joinpath(name)}")
     except CalledProcessError as e:
-        Logger.print_error(f"Error creating service file: {e}")
+        Logger.print_error(f"Error creando archivo de servicio: {e}")
         raise
 
 
 def create_env_file(path: Path, content: str) -> None:
     """
-    Creates an env file at the provided path with the provided content.
-    :param path: the path of the env file
-    :param content: the content of the env file
+    Crea un archivo .env en la ruta proporcionada con el contenido proporcionado.
+    :param path: la ruta del archivo .env
+    :param content: el contenido del archivo .env
     :return: None
     """
     try:
         with open(path, "w") as env_file:
             env_file.write(content)
-        Logger.print_ok(f"Env file created: {path}")
+        Logger.print_ok(f"Archivo .env creado: {path}")
     except OSError as e:
-        Logger.print_error(f"Error creating env file: {e}")
+        Logger.print_error(f"Error creando archivo .env: {e}")
         raise
 
 
 def remove_system_service(service_name: str) -> None:
     """
-    Disables and removes a systemd service
-    :param service_name: name of the service unit file - must end with '.service'
+    Deshabilita y elimina un servicio systemd
+    :param service_name: nombre del archivo de unidad de servicio - debe terminar con '.service'
     :return: None
     """
     try:
         if not service_name.endswith(".service"):
-            raise ValueError(f"service_name '{service_name}' must end with '.service'")
+            raise ValueError(f"service_name '{service_name}' debe terminar con '.service'")
 
         file: Path = SYSTEMD.joinpath(service_name)
         if not file.exists() or not file.is_file():
-            Logger.print_info(f"Service '{service_name}' does not exist! Skipped ...")
+            Logger.print_info(f"Servicio '{service_name}' no existe! Saltado ...")
             return
 
-        Logger.print_status(f"Removing {service_name} ...")
+        Logger.print_status(f"Eliminando {service_name} ...")
         cmd_sysctl_service(service_name, "stop")
         cmd_sysctl_service(service_name, "disable")
         remove_with_sudo(file)
         cmd_sysctl_manage("daemon-reload")
         cmd_sysctl_manage("reset-failed")
-        Logger.print_ok(f"{service_name} successfully removed!")
+        Logger.print_ok(f"{service_name} eliminado con éxito!")
     except Exception as e:
-        Logger.print_error(f"Error removing {service_name}: {e}")
+        Logger.print_error(f"Error eliminando {service_name}: {e}")
         raise
 
 
@@ -562,7 +555,7 @@ def get_service_file_path(instance_type: type, suffix: str) -> Path:
     from utils.common import convert_camelcase_to_kebabcase
 
     if not isinstance(instance_type, type):
-        raise ValueError("instance_type must be a class")
+        raise ValueError("instance_type debe ser una clase")
 
     name: str = convert_camelcase_to_kebabcase(instance_type.__name__)
     if suffix != "":
@@ -577,7 +570,7 @@ def get_distro_info() -> Tuple[str, str]:
     distro_info: str = check_output(["cat", "/etc/os-release"]).decode().strip()
 
     if not distro_info:
-        raise ValueError("Error reading distro info!")
+        raise ValueError("Error leyendo la información de la distribución!")
 
     distro_id: str = ""
     distro_id_like: str = ""
@@ -595,8 +588,8 @@ def get_distro_info() -> Tuple[str, str]:
         distro_id = distro_id_like
 
     if not distro_id:
-        raise ValueError("Error reading distro id!")
+        raise ValueError("Error leyendo el ID de la distribución!")
     if not distro_version:
-        raise ValueError("Error reading distro version!")
+        raise ValueError("Error leyendo la versión de la distribución!")
 
     return distro_id.lower(), distro_version

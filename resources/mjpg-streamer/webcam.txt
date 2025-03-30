@@ -1,79 +1,79 @@
-### Windows users: To edit this file use Notepad++, VSCode, Atom or SublimeText.
-### Do not use Notepad or WordPad.
+### Usuarios de Windows: Para editar este archivo use Notepad++, VSCode, Atom o SublimeText.
+### No use Notepad o WordPad.
 
-### MacOSX users: If you use Textedit to edit this file make sure to use 
-### "plain text format" and "disable smart quotes" in "Textedit > Preferences"
+### Usuarios de MacOSX: Si usa Textedit para editar este archivo asegúrese de usar
+### "formato de texto plano" y "desactivar comillas inteligentes" en "Textedit > Preferencias"
 
-### Configure which camera to use
+### Configurar qué cámara usar
 #
-# Available options are:
-# - auto: tries first usb webcam, if that's not available tries raspi cam
-# - usb: only tries usb webcam
-# - raspi: only tries raspi cam
+# Las opciones disponibles son:
+# - auto: intenta primero webcam usb, si no está disponible intenta cámara raspi
+# - usb: solo intenta webcam usb
+# - raspi: solo intenta cámara raspi
 #
-# Defaults to auto
+# Por defecto es auto
 #
 #camera="auto"
 
-### Additional options to supply to MJPG Streamer for the USB camera
+### Opciones adicionales para proporcionar a MJPG Streamer para la cámara USB
 #
-# See https://faq.octoprint.org/mjpg-streamer-config for available options
+# Ver https://faq.octoprint.org/mjpg-streamer-config para opciones disponibles
 #
-# Defaults to a resolution of 640x480 px and a framerate of 10 fps
+# Por defecto usa una resolución de 640x480 px y una tasa de fotogramas de 10 fps
 #
 #camera_usb_options="-r 640x480 -f 10"
 
-### Additional webcam devices known to cause problems with -f
+### Dispositivos webcam adicionales conocidos por causar problemas con -f
 #
-# Apparently there a some devices out there that with the current 
-# mjpg_streamer release do not support the -f parameter (for specifying 
-# the capturing framerate) and will just refuse to output an image if it 
-# is supplied.
+# Aparentemente hay algunos dispositivos que con la versión actual de
+# mjpg_streamer no soportan el parámetro -f (para especificar
+# la tasa de captura de fotogramas) y simplemente se negarán a mostrar una imagen si
+# se proporciona.
 #
-# The webcam daemon will detect those devices by their USB Vendor and Product
-# ID and remove the -f parameter from the options provided to mjpg_streamer.
+# El daemon de la webcam detectará esos dispositivos por su ID de Proveedor y Producto USB
+# y eliminará el parámetro -f de las opciones proporcionadas a mjpg_streamer.
 #
-# By default, this is done for the following devices:
+# Por defecto, esto se hace para los siguientes dispositivos:
 #   Logitech C170 (046d:082b)
 #   GEMBIRD (1908:2310)
 #   Genius F100 (0458:708c)
 #   Cubeternet GL-UPC822 UVC WebCam (1e4e:0102)
 #
-# Using the following option it is possible to add additional devices. If
-# your webcam happens to show above symptoms, try determining your cam's
-# vendor and product id via lsusb, activating the line below by removing # and 
-# adding it, e.g. for two broken cameras "aabb:ccdd" and "aabb:eeff"
+# Usando la siguiente opción es posible añadir dispositivos adicionales. Si
+# su webcam muestra los síntomas anteriores, intente determinar el id de
+# proveedor y producto de su cámara mediante lsusb, active la línea de abajo eliminando # y
+# añadiéndolo, por ejemplo para dos cámaras defectuosas "aabb:ccdd" y "aabb:eeff"
 #
 #   additional_brokenfps_usb_devices=("aabb:ccdd" "aabb:eeff")
 #
 #
 #additional_brokenfps_usb_devices=()
 
-### Additional options to supply to MJPG Streamer for the RasPi Cam
+### Opciones adicionales para proporcionar a MJPG Streamer para la Cámara RasPi
 #
-# See https://faq.octoprint.org/mjpg-streamer-config for available options
+# Ver https://faq.octoprint.org/mjpg-streamer-config para opciones disponibles
 #
-# Defaults to 10fps
+# Por defecto a 10fps
 #
 #camera_raspi_options="-fps 10"
 
-### Configuration of camera HTTP output
+### Configuración de salida HTTP de la cámara
 #
-# Usually you should NOT need to change this at all! Only touch if you
-# know what you are doing and what the parameters mean.
+# ¡Normalmente NO debería necesitar cambiar esto en absoluto! Solo modifique si
+# sabe lo que está haciendo y lo que significan los parámetros.
 #
-# Below settings are used in the mjpg-streamer call like this:
+# Los ajustes siguientes se usan en la llamada mjpg-streamer así:
 #
 #   -o "output_http.so -w $camera_http_webroot $camera_http_options"
 #
-# Current working directory is the mjpg-streamer base directory.
+# El directorio de trabajo actual es el directorio base de mjpg-streamer.
 #
 #camera_http_webroot="./www-mainsail"
 #camera_http_options="-n"
 
 ### EXPERIMENTAL
-# Support for different streamer types.
+# Soporte para diferentes tipos de streamer.
 #
-# Available options:
-#   mjpeg [default] - stable MJPG-streamer
+# Opciones disponibles:
+#   mjpeg [predeterminado] - MJPG-streamer estable
 #camera_streamer=mjpeg

@@ -1,0 +1,28 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: KIAUH\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-02-20 12:00+0000\n"
+"PO-Revision-Date: 2024-02-20 12:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: Spanish\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Happy printing!"
+msgstr "¡Feliz impresión!"
+
+msgid "Backup successful!"
+msgstr "¡Copia de seguridad exitosa!"
+
+msgid "Unable to backup"
+msgstr "No se pudo realizar la copia de seguridad"
+
+msgid "File does not exist! Skipping ..."
+msgstr "¡El archivo no existe! Omitiendo ..."
+
+msgid "Creating backup of"
+msgstr "Creando copia de seguridad de"

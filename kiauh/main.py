@@ -8,6 +8,10 @@
 # ======================================================================= #
 import io
 import sys
+import gettext
+import locale
+import os
+from pathlib import Path
 
 from core.logger import Logger
 from core.menus.main_menu import MainMenu
@@ -22,8 +26,19 @@ def ensure_encoding() -> None:
 
 def main() -> None:
     try:
+        # Configurar internacionalización
+        localedir = os.path.join(Path(__file__).parent.parent, 'locale')
+        lang = locale.getdefaultlocale()[0]
+        if not lang:
+            lang = 'en'
+        try:
+            trans = gettext.translation('kiauh', localedir=localedir, languages=[lang])
+            trans.install()
+        except FileNotFoundError:
+            gettext.install('kiauh')
+            
         KiauhSettings()
         ensure_encoding()
         MainMenu().run()
     except KeyboardInterrupt:
-        Logger.print_ok("\nHappy printing!\n", prefix=False)
+        Logger.print_ok(_("\nHappy printing!\n"), prefix=False)

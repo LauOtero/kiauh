@@ -18,53 +18,53 @@ from utils.input_utils import get_confirm, get_string_input
 
 def change_system_hostname() -> None:
     """
-    Procedure to change the system hostname.
+    Procedimiento para cambiar el nombre del sistema.
     :return:
     """
 
     Logger.print_dialog(
         DialogType.CUSTOM,
         [
-            "Changing the hostname of this system allows you to access an installed "
-            "webinterface by simply typing the hostname like this in the browser:",
+            "Cambiar el nombre del sistema te permite acceder a una interfaz web "
+            "instalada simplemente escribiendo el nombre del host así en el navegador:",
             "\n\n",
             "http://<hostname>.local",
             "\n\n",
-            "Example: If you set your hostname to 'my-printer', you can access an "
-            "installed webinterface by typing 'http://my-printer.local' in the "
-            "browser.",
+            "Ejemplo: Si configuras el nombre del host como 'mi-impresora', puedes acceder a "
+            "la interfaz web instalada escribiendo 'http://mi-impresora.local' en el "
+            "navegador.",
         ],
-        custom_title="CHANGE SYSTEM HOSTNAME",
+        custom_title="CAMBIAR NOMBRE DEL SISTEMA",
     )
-    if not get_confirm("Do you want to change the hostname?", default_choice=False):
+    if not get_confirm("¿Deseas cambiar el nombre del sistema?", default_choice=False):
         return
 
     Logger.print_dialog(
         DialogType.CUSTOM,
         [
-            "Allowed characters: a-z, 0-9 and '-'",
-            "The name must not contain the following:",
+            "Caracteres permitidos: a-z, 0-9 y '-'",
+            "El nombre no debe contener lo siguiente:",
             "\n\n",
-            "● Any special characters",
-            "● No leading or trailing '-'",
+            "● Ningún carácter especial",
+            "● Sin guiones al inicio o final",
         ],
     )
     hostname = get_string_input(
-        "Enter the new hostname",
+        "Ingresa el nuevo nombre del sistema",
         regex=r"^[a-z0-9]+([a-z0-9-]*[a-z0-9])?$",
     )
-    if not get_confirm(f"Change the hostname to '{hostname}'?", default_choice=False):
-        Logger.print_info("Aborting hostname change ...")
+    if not get_confirm(f"¿Cambiar el nombre del sistema a '{hostname}'?", default_choice=False):
+        Logger.print_info("Abortando cambio de nombre del sistema ...")
         return
 
     try:
-        Logger.print_status("Changing hostname ...")
+        Logger.print_status("Cambiando nombre del sistema ...")
 
-        Logger.print_status("Checking for dependencies ...")
+        Logger.print_status("Verificando dependencias ...")
         check_install_dependencies({"avahi-daemon"}, include_global=False)
 
         # create or backup hosts file
-        Logger.print_status("Creating backup of hosts file ...")
+        Logger.print_status("Creando respaldo del archivo hosts ...")
         hosts_file = Path("/etc/hosts")
         if not check_file_exist(hosts_file, True):
             cmd = ["sudo", "touch", hosts_file.as_posix()]
@@ -83,21 +83,21 @@ def change_system_hostname() -> None:
         Logger.print_ok()
 
         # call hostnamectl set-hostname <hostname>
-        Logger.print_status(f"Setting hostname to '{hostname}' ...")
+        Logger.print_status(f"Configurando nombre del sistema a '{hostname}' ...")
         cmd = ["sudo", "hostnamectl", "set-hostname", hostname]
         run(cmd, stderr=PIPE, check=True)
         Logger.print_ok()
 
         # add hostname to hosts file at the end of the file
-        Logger.print_status("Writing new hostname to /etc/hosts ...")
+        Logger.print_status("Escribiendo nuevo nombre del sistema en /etc/hosts ...")
         stdin = f"127.0.0.1       {hostname}\n"
         cmd = ["sudo", "tee", "-a", hosts_file.as_posix()]
         run(cmd, input=stdin.encode(), stderr=PIPE, stdout=PIPE, check=True)
         Logger.print_ok()
 
-        Logger.print_ok("New hostname successfully configured!")
-        Logger.print_ok("Remember to reboot for the changes to take effect!\n")
+        Logger.print_ok("¡Nuevo nombre del sistema configurado exitosamente!")
+        Logger.print_ok("¡Recuerda reiniciar para que los cambios surtan efecto!\n")
 
     except CalledProcessError as e:
-        Logger.print_error(f"Error during change hostname procedure: {e}")
+        Logger.print_error(f"Error durante el procedimiento de cambio de nombre: {e}")
         return

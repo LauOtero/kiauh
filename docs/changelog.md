@@ -1,229 +1,227 @@
-## Changelog
+## Registro de cambios
 
-This document covers possible important changes to KIAUH.
+Este documento cubre posibles cambios importantes en KIAUH.
 
 ### 2024-08-31 (v6.0.0-alpha.1)
-Long time no see, but here we are again!
-A lot has happened in the background, but now it is time to take it out into the wild.
+¡Hace tiempo que no nos vemos, pero aquí estamos de nuevo!
+Han pasado muchas cosas en segundo plano, pero ahora es momento de sacarlo a la luz.
 
-#### KIAUH has now reached version 6! Well, at least in an alpha state...
+#### ¡KIAUH ha alcanzado la versión 6! Bueno, al menos en estado alfa...
 
-The project has seen a complete rewrite of the script from scratch in Python.
-It requires Python 3.8 or newer to run. Because this update is still in an alpha state, bugs may or will occur.
-During startup, you will be asked if you want to start the new version 6 or the old version 5.
-As long as version 6 is in a pre-release state, version 5 will still be available. If there are any critical issues
-with the new version that were overlooked, you can always switch back to the old version.
+El proyecto ha visto una reescritura completa del script desde cero en Python.
+Requiere Python 3.8 o más reciente para ejecutarse. Debido a que esta actualización aún está en estado alfa, pueden ocurrir errores.
+Durante el inicio, se te preguntará si deseas iniciar la nueva versión 6 o la antigua versión 5.
+Mientras la versión 6 esté en estado pre-lanzamiento, la versión 5 seguirá disponible. Si hay problemas críticos
+con la nueva versión que se pasaron por alto, siempre puedes volver a la versión anterior.
 
-In case you selected not to get asked about which version to start (option 3 or 4 in the startup dialog) and you want to
-revert that decision, you will find a line called `version_to_launch=` within the `.kiauh.ini` file in your home directory.
-Just delete that line, save the file and restart KIAUH. KIAUH will then ask you again which version you want to start.
+En caso de que hayas seleccionado no preguntar sobre qué versión iniciar (opción 3 o 4 en el diálogo de inicio) y quieras
+revertir esa decisión, encontrarás una línea llamada `version_to_launch=` dentro del archivo `.kiauh.ini` en tu directorio home.
+Simplemente borra esa línea, guarda el archivo y reinicia KIAUH. KIAUH te preguntará nuevamente qué versión deseas iniciar.
 
-Here is a list of the most important changes to KIAUH in regard to version 6:
-- The majority of features available in KIAUH v5 are still available; they just got migrated from Bash to Python.
-- It is now possible to add new/remove instances to/from existing multi-instance installations of Klipper and Moonraker
-- KIAUH now has an Extension-System. This allows contributors to add new installers to KIAUH without having to modify the main script.
-    - You will now find some of the features that were previously available in the Installer-Menu in the Extensions-Menu.
-    - The current extensions are:
-        - G-Code Shell Command (previously found in the Advanced-Menu)
-        - Mainsail Theme Installer (previously found in the Advanced-Menu)
-        - Klipper-Backup (new in v6!)
-        - Moonraker Telegram Bot (previously found in the Installer-Menu)
-        - PrettyGCode for Klipper (previously found in the Installer-Menu)
-        - Obico for Klipper (previously found in the Installer-Menu)
-    - The following additional extensions are planned, but not yet available:
-        - Spoolman (available in v5 in the Installer-Menu)
-        - OctoApp (available in v5 in the Installer-Menu)
-- KIAUH has its own config file now
-    - The file has some default values for the currently supported options
-    - There might be more options in the future
-    - It is located in KIAUH's root directory and is called `default.kiauh.cfg`
-        - DO NOT EDIT the default file directly, instead make a copy of it and call it `kiauh.cfg`
-        - Settings changed via the Advanced-Menu will be written to the `kiauh.cfg`
-- Support for OctoPrint was removed
+Aquí hay una lista de los cambios más importantes en KIAUH con respecto a la versión 6:
+- La mayoría de las características disponibles en KIAUH v5 siguen disponibles; solo se migraron de Bash a Python.
+- Ahora es posible agregar nuevas/eliminar instancias a/de instalaciones multi-instancia existentes de Klipper y Moonraker
+- KIAUH ahora tiene un Sistema de Extensiones. Esto permite a los contribuyentes agregar nuevos instaladores a KIAUH sin tener que modificar el script principal.
+    - Ahora encontrarás algunas de las características que antes estaban disponibles en el Menú de Instalador en el Menú de Extensiones.
+    - Las extensiones actuales son:
+        - Comando Shell G-Code (anteriormente en el Menú Avanzado)
+        - Instalador de Temas Mainsail (anteriormente en el Menú Avanzado)
+        - Klipper-Backup (¡nuevo en v6!)
+        - Bot de Telegram Moonraker (anteriormente en el Menú de Instalador)
+        - PrettyGCode para Klipper (anteriormente en el Menú de Instalador)
+        - Obico para Klipper (anteriormente en el Menú de Instalador)
+    - Las siguientes extensiones adicionales están planeadas, pero aún no disponibles:
+        - Spoolman (disponible en v5 en el Menú de Instalador)
+        - OctoApp (disponible en v5 en el Menú de Instalador)
+- KIAUH ahora tiene su propio archivo de configuración
+    - El archivo tiene algunos valores predeterminados para las opciones actualmente soportadas
+    - Podría haber más opciones en el futuro
+    - Está ubicado en el directorio raíz de KIAUH y se llama `default.kiauh.cfg`
+        - NO EDITES el archivo predeterminado directamente, en su lugar haz una copia y llámala `kiauh.cfg`
+        - Los ajustes cambiados a través del Menú Avanzado se escribirán en el `kiauh.cfg`
+- Se eliminó el soporte para OctoPrint
 
-Feel free to give version 6 a try and report any bugs or issues you encounter! Every feedback is appreciated.
+¡Siéntete libre de probar la versión 6 y reportar cualquier error o problema que encuentres! Se agradece cualquier comentario.
 
 ### 2023-06-17
-KIAUH has now added support for installing Mobileraker's companion!
-Mobileraker is a free and Open Source Android and iOS App for Klipper, utilizing the Moonraker API, allowing you
-to control your printer. Thank you to [Clon1998](https://github.com/Clon1998) for adding this feature!
+¡KIAUH ha agregado soporte para instalar el complemento de Mobileraker!
+Mobileraker es una aplicación gratuita y de código abierto para Android e iOS para Klipper, que utiliza la API de Moonraker, permitiéndote
+controlar tu impresora. ¡Gracias a [Clon1998](https://github.com/Clon1998) por agregar esta función!
 
 ### 2023-02-03
-The installer for MJPG-Streamer got replaced by crowsnest. It is an improved webcam service, utilizing ustreamer.
-Please have a look here for additional info about crowsnest and how to configure it: https://github.com/mainsail-crew/crowsnest \
-It's unsure if the previous MJPG-Streamer installer will be updated and make its way back into KIAUH.
-A big thanks to [KwadFan](https://github.com/KwadFan) for writing the crowsnest implementation.
+El instalador de MJPG-Streamer fue reemplazado por crowsnest. Es un servicio de webcam mejorado que utiliza ustreamer.
+Por favor mira aquí para información adicional sobre crowsnest y cómo configurarlo: https://github.com/mainsail-crew/crowsnest \
+No está claro si el instalador anterior de MJPG-Streamer será actualizado y volverá a KIAUH.
+Muchas gracias a [KwadFan](https://github.com/KwadFan) por escribir la implementación de crowsnest.
 
 ### 2022-10-31
-Some functions got updated, though not all of them.
+Algunas funciones se actualizaron, aunque no todas.
 
-The following functions are still currently unavailable:
-- Installation of: MJPG-Streamer
-- All backup functions and the Log-Upload
+Las siguientes funciones no están disponibles actualmente:
+- Instalación de: MJPG-Streamer
+- Todas las funciones de respaldo y la Carga de Registros
 
 ### 2022-10-20
-KIAUH has now reached major version 5 !
+¡KIAUH ha alcanzado la versión principal 5!
 
-Recently Moonraker introduced some changes which makes it necessary to change the folder structure of printer setups.
-If you are interested in the details, check out this PR: https://github.com/Arksine/moonraker/pull/491 \
-Although Moonraker has some mechanics available to migrate existing setups to the new file structure with the use of symlinks, fresh and clean installs
-should be considered.
+Recientemente Moonraker introdujo algunos cambios que hacen necesario cambiar la estructura de carpetas de las configuraciones de impresora.
+Si estás interesado en los detalles, revisa este PR: https://github.com/Arksine/moonraker/pull/491 \
+Aunque Moonraker tiene algunos mecanismos disponibles para migrar configuraciones existentes a la nueva estructura de archivos con el uso de enlaces simbólicos, se recomienda
+realizar instalaciones nuevas y limpias.
 
-The version jump of KIAUH to v5 is a breaking change due to those major changes! That means v4 and v5 are not compatible with each other!
-This is also the reason why you will currently be greeted by a yellow notification in the main menu of KIAUH leading to this changelog.
-I decided to disable a few functions of the script and focus on releasing the required changes to the core components of this script.
-I will work on updating the other parts of the script piece by piece during the next days/weeks.
-So I am already sorry in advance if one of your desired components you wanted to install or use temporarily cannot be installed or used right now.
+¡El salto de versión de KIAUH a v5 es un cambio importante debido a estos cambios mayores! ¡Esto significa que v4 y v5 no son compatibles entre sí!
+Esta es también la razón por la que actualmente serás recibido por una notificación amarilla en el menú principal de KIAUH que lleva a este registro de cambios.
+Decidí deshabilitar algunas funciones del script y concentrarme en lanzar los cambios requeridos a los componentes principales de este script.
+Trabajaré en actualizar las otras partes del script pieza por pieza durante los próximos días/semanas.
+Así que me disculpo de antemano si alguno de los componentes que querías instalar o usar temporalmente no puede ser instalado o usado en este momento.
 
-The following functions are currently unavailable:
-- Installation of: KlipperScreen, Obico, Octoprint, MJPG-Streamer, Telegram Bot and PrettyGCode
-- All backup functions and the Log-Upload
+Las siguientes funciones no están disponibles actualmente:
+- Instalación de: KlipperScreen, Obico, Octoprint, MJPG-Streamer, Bot de Telegram y PrettyGCode
+- Todas las funciones de respaldo y la Carga de Registros
 
-**So what is working?**\
-Installation of Klipper, Moonraker, Mainsail and Fluidd. Both, single and multi-instance setups work!\
-As already said, the rest will follow in the near future. Updating and removal of already installed components should continue to work.
+**¿Entonces qué está funcionando?**\
+Instalación de Klipper, Moonraker, Mainsail y Fluidd. ¡Tanto configuraciones individuales como multi-instancia funcionan!\
+Como ya se dijo, el resto vendrá en un futuro cercano. La actualización y eliminación de componentes ya instalados debería seguir funcionando.
 
-**What was removed?**\
-The option to change Klippers configuration directory got removed. From now on it will not be possible anymore to change
-the configuration directory from within KIAUH and the new filestructure is enforced.
+**¿Qué se eliminó?**\
+Se eliminó la opción de cambiar el directorio de configuración de Klipper. De ahora en adelante no será posible cambiar
+el directorio de configuración desde KIAUH y se impone la nueva estructura de archivos.
 
-**What if I don't have an existing Klipper/Moonraker install right now?**\
-Nothing important to think about, install Klipper and Moonraker. KIAUH will install both of them with the new filestructure.
+**¿Qué pasa si no tengo una instalación existente de Klipper/Moonraker en este momento?**\
+Nada importante en qué pensar, instala Klipper y Moonraker. KIAUH instalará ambos con la nueva estructura de archivos.
 
-**What if I have an existing Klipper/Moonraker install?**\
-First of all: Backups! Please copy all of your config files and the Moonraker database (it is a hidden folder, usually `~/.moonraker_database`) to a safe location.
-After that, uninstall Klipper and Moonraker with KIAUH. You can then proceed and re-install both of them with KIAUH again. It is important that you are on KIAUH v5 for that!
-Once everything is installed again, you need to manually copy your configuration files from the old `~/klipper_config` folder to the new `~/printer_data/config` folder.
-Previous, by Moonraker created symlinks to folder of the old filestructure will not work anymore, you need to move the files to their new location now!
-Do the same with the two files inside of `~/.moonraker_database`. Move/copy them into `~/printer_data/database`. If `~/printer_data/database` is already populated with a `data.mdb` and `lock.mdb`
-delete them or simply overwrite them. Nothing should be lost as those should be empty database files. Anyway, you made backups, right?
-You can now proceed and restart Moonraker. Either from within Mainsail or Fluidd, or use SSH and execute `sudo systemctl restart moonraker`.
-If everything went smooth, you should be good to go again. If you see some Moonraker warnings about deprecated options in the `moonraker.conf`, go ahead and resolve them.
-I will not cover them in detail here. A good source is the Moonraker documentation: https://moonraker.readthedocs.io/en/latest/configuration/
+**¿Qué pasa si tengo una instalación existente de Klipper/Moonraker?**\
+Primero que nada: ¡Respaldos! Por favor copia todos tus archivos de configuración y la base de datos de Moonraker (es una carpeta oculta, usualmente `~/.moonraker_database`) a una ubicación segura.
+Después de eso, desinstala Klipper y Moonraker con KIAUH. Luego puedes proceder y reinstalar ambos con KIAUH nuevamente. Es importante que estés en KIAUH v5 para eso!
+Una vez que todo esté instalado nuevamente, necesitas copiar manualmente tus archivos de configuración desde la antigua carpeta `~/klipper_config` a la nueva `~/printer_data/config`.
+Los enlaces simbólicos anteriores creados por Moonraker a carpetas de la antigua estructura de archivos ya no funcionarán, ¡necesitas mover los archivos a su nueva ubicación ahora!
+Haz lo mismo con los dos archivos dentro de `~/.moonraker_database`. Mueve/copia los archivos a `~/printer_data/database`. Si `~/printer_data/database` ya está poblada con un `data.mdb` y `lock.mdb`
+bórralos o simplemente sobrescríbelos. No se debería perder nada ya que deberían ser archivos de base de datos vacíos. De todos modos, hiciste respaldos, ¿verdad?
+Ahora puedes proceder y reiniciar Moonraker. Ya sea desde Mainsail o Fluidd, o usa SSH y ejecuta `sudo systemctl restart moonraker`.
+Si todo salió bien, deberías estar listo para continuar. Si ves algunas advertencias de Moonraker sobre opciones obsoletas en el `moonraker.conf`, procede a resolverlas.
+No las cubriré en detalle aquí. Una buena fuente es la documentación de Moonraker: https://moonraker.readthedocs.io/en/latest/configuration/
+**¿Qué pasa si tengo una instalación multi-instancia existente de Klipper/Moonraker?**\
+Básicamente se aplican los mismos pasos que se requieren para instalaciones de una sola instancia a las configuraciones multi-instancia. Así que por favor lee el párrafo anterior si aún no lo has hecho.
+Primero haz respaldos de todo. Luego elimina e instala nuevamente la cantidad deseada de instancias de Klipper y Moonraker.
+Ahora necesitas mover todos los archivos de configuración y base de datos a sus nuevas ubicaciones.\
+Ejemplo con una instancia llamada `printer_1`:\
+Los archivos de configuración van de `~/klipper_config/printer_1` a `~/printer_1_data/config`.
+Los archivos de base de datos van de `~/.moonraker_database_1` a `~/printer_1_data/database`.
+Ahora reinicia todos los servicios de Moonraker. Puedes reiniciarlos todos a la vez si inicias KIAUH, y en el menú principal escribes `restart moonraker` y presionas Enter.
 
-**What if I have an existing Klipper/Moonraker multi-instance install?**\
-Pretty much the same steps that are required for single instance installs apply to multi-instance setups. So please go ahead and read the previous paragraph if you didn't already.
-Make backups of everything first. Then remove and install the desired amount of Klipper and Moonraker instances again.
-Now you need to move all config and database files to their new locations.\
-Example with an instance called `printer_1`:\
-The config files go from `~/klipper_config/printer_1` to `~/printer_1_data/config`.
-The database files go from `~/.moonraker_database_1` to `~/printer_1_data/database`.
-Now restart all Moonraker services. You can restart all of them at once if you launch KIAUH, and in the main menu type `restart moonraker` and hit Enter.
-
-I hope I have covered the most important things. In case you need further support, the official Klipper Discord is a good place to ask for help.
+Espero haber cubierto las cosas más importantes. En caso de que necesites más ayuda, el Discord oficial de Klipper es un buen lugar para pedir ayuda.
 
 ### 2022-08-15
-Support for "Obico for Klipper" was added! Huge thanks to [kennethjiang](https://github.com/kennethjiang) for helping me with the implementation!
+¡Se agregó soporte para "Obico for Klipper"! ¡Muchas gracias a [kennethjiang](https://github.com/kennethjiang) por ayudarme con la implementación!
 
 ### 2022-05-29
-KIAUH has now reached major version 4 !
-* feat: Klipper can be installed under Python3 (still considered as experimental)
-* feat: Klipper can be installed from custom repositories / inofficial forks
-* feat: Custom instance name for multi instance installations of Klipper
-  * Any other multi instance will share the same name given to the corresponding Klipper instance
-  * E.g. klipper-voron2 -> moonraker-voron2 -> moonraker-telegram-bot-voron2
-* feat: Option to allow installation of / updating to unstable Mainsail and Fluidd versions
-  * by default only stable versions get installed/updated
-* feat: Multi-Instance OctoPrint installations now each have their own virtual python environment
-  * allows independent installation of plugins for each instance
-* feat: Implementing the use of shellcheck during development
-* feat: Implementing a simple logging mechanic
-* feat: Log-upload function now also allows uploading other logfiles (kiauh.log, webcamd.log etc.)
-* feat: added several new help dialogs which try to explain various functions
-* fix: During Klipper installation, checks for group membership of `tty` and `dialout` are made
-* refactor: rework of the settings menu for better control the new KIAUH features
-* refactor: Support for DWC and DWC-for-Klipper has been removed
-* refactor: The backup before update settings were moved to the KIAUH settings menu
-* refactor: Switch branch function has been removed (was replaced by the custom Klipper repo feature)
-* refactor: The update manager sections for Mainsail, Fluidd and KlipperScreen were removed from the moonraker.conf template
-  * They will now be individually added during installation of the corresponding interface
-* refactor: The rollback function was reworked and now also allows rollbacks of Moonraker
-  * It now takes numerical inputs and reverts the corresponding repository by the given amount instead
-  * KIAUH does not save previous states to its config anymore like it did with the previous approach
-
+¡KIAUH ha alcanzado la versión principal 4!
+* característica: Klipper puede instalarse bajo Python3 (aún considerado experimental)
+* característica: Klipper puede instalarse desde repositorios personalizados / forks no oficiales
+* característica: Nombre de instancia personalizado para instalaciones multi-instancia de Klipper
+  * Cualquier otra multi-instancia compartirá el mismo nombre dado a la instancia correspondiente de Klipper
+  * Por ejemplo: klipper-voron2 -> moonraker-voron2 -> moonraker-telegram-bot-voron2
+* característica: Opción para permitir la instalación/actualización a versiones inestables de Mainsail y Fluidd
+  * por defecto solo se instalan/actualizan versiones estables
+* característica: Las instalaciones multi-instancia de OctoPrint ahora tienen cada una su propio entorno virtual de python
+  * permite la instalación independiente de plugins para cada instancia
+* característica: Implementación del uso de shellcheck durante el desarrollo
+* característica: Implementación de un mecanismo simple de registro
+* característica: La función de carga de registros ahora también permite cargar otros archivos de registro (kiauh.log, webcamd.log etc.)
+* característica: se agregaron varios nuevos diálogos de ayuda que intentan explicar varias funciones
+* corrección: Durante la instalación de Klipper, se realizan verificaciones de membresía de grupo para `tty` y `dialout`
+* refactorización: rediseño del menú de configuración para un mejor control de las nuevas características de KIAUH
+* refactorización: Se eliminó el soporte para DWC y DWC-for-Klipper
+* refactorización: La configuración de respaldo antes de actualizar se movió al menú de configuración de KIAUH
+* refactorización: Se eliminó la función de cambiar rama (fue reemplazada por la característica de repositorio personalizado de Klipper)
+* refactorización: Se eliminaron las secciones del administrador de actualizaciones para Mainsail, Fluidd y KlipperScreen de la plantilla moonraker.conf
+  * Ahora se agregarán individualmente durante la instalación de la interfaz correspondiente
+* refactorización: La función de reversión fue rediseñada y ahora también permite reversiones de Moonraker
+  * Ahora toma entradas numéricas y revierte el repositorio correspondiente por la cantidad dada
+  * KIAUH ya no guarda estados anteriores en su configuración como lo hacía con el enfoque anterior
 
 ### 2022-01-29
-* Starting from the 28th of January, Moonraker can make use of PackageKit and PolicyKit.\
-More details on that can be found [here](
-https://github.com/Arksine/moonraker/issues/349) and [here](https://github.com/Arksine/moonraker/pull/346)
-* KIAUH will install Moonrakers PolicyKit rules by default when __installing__ Moonraker
-* KIAUH will also install Moonrakers PolicyKit rules when __updating__ Moonraker __via KIAUH__ as of now
+* A partir del 28 de enero, Moonraker puede hacer uso de PackageKit y PolicyKit.\
+Más detalles se pueden encontrar [aquí](
+https://github.com/Arksine/moonraker/issues/349) y [aquí](https://github.com/Arksine/moonraker/pull/346)
+* KIAUH instalará las reglas de PolicyKit de Moonraker por defecto al __instalar__ Moonraker
+* KIAUH también instalará las reglas de PolicyKit de Moonraker al __actualizar__ Moonraker __vía KIAUH__ a partir de ahora
 
 ### 2021-12-30
-* Updated the doc for the usage of the [G-Code Shell Command Extension](docs/gcode_shell_command.md)
-* It became apparent, that some user groups are missing on some systems. A missing video group \
-membership for example caused issues when installing mjpg-streamer while not using the default pi user. \
-Other issues could occur when trying to flash an MCU on Debian or Ubuntu distributions where a user might not be part
-of the dialout group by default. A check for the tty group is also done. The tty group is needed for setting
-up a linux MCU (currently not yet supported by KIAUH).
-* There is an issue when trying to install Mainsail or Fluidd on Ubuntu 21.10. Permissions on that distro seem to have seen a rework
- in comparison to 20.04 and users will be greeted with an "Error 403 - Permission denied" message after installing one of Klippers webinterfaces.
-I still have to figure out a viable solution for that.
+* Se actualizó la documentación para el uso de la [Extensión de Comandos Shell G-Code](docs/gcode_shell_command.md)
+* Se hizo evidente que faltan algunos grupos de usuarios en algunos sistemas. Una membresía faltante del grupo video \
+por ejemplo causó problemas al instalar mjpg-streamer mientras no se usaba el usuario pi predeterminado. \
+Otros problemas podrían ocurrir al intentar flashear un MCU en distribuciones Debian o Ubuntu donde un usuario podría no ser parte
+del grupo dialout por defecto. También se realiza una verificación del grupo tty. El grupo tty es necesario para configurar
+un MCU linux (actualmente no soportado por KIAUH).
+* Hay un problema al intentar instalar Mainsail o Fluidd en Ubuntu 21.10. Los permisos en esa distribución parecen haber visto una reorganización
+ en comparación con 20.04 y los usuarios serán recibidos con un mensaje "Error 403 - Permiso denegado" después de instalar una de las interfaces web de Klipper.
+Todavía tengo que encontrar una solución viable para eso.
 
 ### 2021-09-28
-* New Feature! Added an installer for the Telegram Bot for Moonraker by [nlef](https://github.com/nlef).
-Checkout his project! Remember to report all issues and/or bugs regarding that project in its corresponding repo and not here 😛.\
-You can find it here: https://github.com/nlef/moonraker-telegram-bot
+* ¡Nueva Característica! Se agregó un instalador para el Bot de Telegram para Moonraker por [nlef](https://github.com/nlef).
+¡Revisa su proyecto! Recuerda reportar todos los problemas y/o errores relacionados con ese proyecto en su repositorio correspondiente y no aquí 😛.\
+Puedes encontrarlo aquí: https://github.com/nlef/moonraker-telegram-bot
 
 ### 2021-09-24
-* The flashing function got adjusted a bit. It is now possible to also flash controllers which are connected over UART and thus accessible via `/dev/ttyAMA0`. You now have to select a connection methop prior flashing which is either USB or UART.
-* Due to several requests over time I have now created a Ko-fi account for those who want to support this project and my work with a small donation. Many thanks in advance to all future donors. You can support me on Ko-fi with this link: https://ko-fi.com/th33xitus
-* As usual, if you find any bugs or issues please report them. I tested the little rework i did with the hardware i have available and haven't encountered any malfunctions of flashing them yet.
+* La función de flasheo se ajustó un poco. Ahora es posible flashear controladores que están conectados por UART y por lo tanto accesibles vía `/dev/ttyAMA0`. Ahora tienes que seleccionar un método de conexión antes de flashear que puede ser USB o UART.
+* Debido a varias solicitudes a lo largo del tiempo, ahora he creado una cuenta Ko-fi para aquellos que quieran apoyar este proyecto y mi trabajo con una pequeña donación. Muchas gracias por adelantado a todos los futuros donantes. Puedes apoyarme en Ko-fi con este enlace: https://ko-fi.com/th33xitus
+* Como siempre, si encuentras algún error o problema por favor repórtalo. Probé el pequeño rediseño que hice con el hardware que tengo disponible y no he encontrado ningún mal funcionamiento al flashearlos todavía.
 
 ### 2021-08-10
-* KIAUH now supports the installation of the "PrettyGCode for Klipper" GCode-Viewer created by [Kragrathea](https://github.com/Kragrathea)! Installation, updating and removal are possible with KIAUH. For more details to this cool piece of software, please have a look here: https://github.com/Kragrathea/pgcode
+* ¡KIAUH ahora soporta la instalación del Visor de GCode "PrettyGCode for Klipper" creado por [Kragrathea](https://github.com/Kragrathea)! La instalación, actualización y eliminación son posibles con KIAUH. Para más detalles sobre este genial software, por favor mira aquí: https://github.com/Kragrathea/pgcode
 
 ### 2021-07-10
-* The NGINX configuration files got updated to be in sync with MainsailOS and FluiddPi. Issues with the NGINX service not starting up due to wrong configuration should be resolved now. To get the updated configuration files, please remove Moonraker and Mainsail / Fluidd with KIAUH first and then re-install it. An automated file check for those configuration files might follow in the future which then automates updating those files if there were important changes.
+* Los archivos de configuración de NGINX se actualizaron para estar sincronizados con MainsailOS y FluiddPi. Los problemas con el servicio NGINX que no iniciaba debido a una configuración incorrecta deberían estar resueltos ahora. Para obtener los archivos de configuración actualizados, por favor elimina Moonraker y Mainsail / Fluidd con KIAUH primero y luego reinstálalos. Una verificación automatizada de archivos para esos archivos de configuración podría seguir en el futuro que entonces automatiza la actualización de esos archivos si hubiera cambios importantes.
 
-* The default `moonraker.conf` was updated to reflect the recent changes to the update manager section. The update channel is set to `dev`.
+* El `moonraker.conf` predeterminado se actualizó para reflejar los cambios recientes en la sección del administrador de actualizaciones. El canal de actualización está configurado en `dev`.
 
 ### 2021-06-29
-* KIAUH will now patch the new `log_path` to existing moonraker.conf files when updating Moonraker and the entry is missing. Before that, it was necessary that the user provided that path manually to make Fluidd display the logfiles in its interface. This issue should be resolved now.
+* KIAUH ahora parcheará el nuevo `log_path` a los archivos moonraker.conf existentes al actualizar Moonraker y cuando falte la entrada. Antes de eso, era necesario que el usuario proporcionara esa ruta manualmente para hacer que Fluidd mostrara los archivos de registro en su interfaz. Este problema debería estar resuelto ahora.
 
 ### 2021-06-15
 
-* Moonraker introduced an optional `log_path` which clients can make use of to show log files located in that folder to their users. More info here: https://github.com/Arksine/moonraker/commit/829b3a4ee80579af35dd64a37ccc092a1f67682a \
-Client developers agreed upon using `~/klipper_logs` as the new default log path.\
-That means, from now on, Klipper and Moonraker services installed with KIAUH will place their logfiles in that mentioned folder.
-* Additionally, KIAUH will now detect Klipper and Moonraker systemd services that still use the old default location of `/tmp/<service>.log` and will update them next time the user updates Klipper and/or Moonraker with the KIAUH update function.
-* Additional symlinks for the following logfiles will get created along those update procedures to make them accessible through the webinterface once its supported:
+* Moonraker introdujo un `log_path` opcional que los clientes pueden usar para mostrar archivos de registro ubicados en esa carpeta a sus usuarios. Más información aquí: https://github.com/Arksine/moonraker/commit/829b3a4ee80579af35dd64a37ccc092a1f67682a \
+Los desarrolladores de clientes acordaron usar `~/klipper_logs` como la nueva ruta de registro predeterminada.\
+Esto significa que, a partir de ahora, los servicios de Klipper y Moonraker instalados con KIAUH colocarán sus archivos de registro en esa carpeta mencionada.
+* Además, KIAUH ahora detectará servicios systemd de Klipper y Moonraker que todavía usan la ubicación predeterminada antigua de `/tmp/<service>.log` y los actualizará la próxima vez que el usuario actualice Klipper y/o Moonraker con la función de actualización de KIAUH.
+* Se crearán enlaces simbólicos adicionales para los siguientes archivos de registro junto con esos procedimientos de actualización para hacerlos accesibles a través de la interfaz web una vez que sea compatible:
     - webcamd.log
     - mainsail-access.log
     - mainsail-error.log
     - fluidd-access.log
     - fluidd-error.log
-* For MainsailOS and FluiddPi users:\
-MainsailOS and FluiddPi will switch the shipped Klipper service from SysVinit to systemd probably with their next release. KIAUH can already help migrate older MainsailOS (0.4.0 and below) and FluiddPi (v1.13.0) releases to match their new service-, file- and folder-structure so you don't have to re-flash the SD-Card of your Raspberry Pi.\
-In detail here is what is going to happen when you use the new "CustomPiOS Migration Helper" from the Advanced Menu\
-`(Main Menu -> 4 -> Enter -> 10 -> Enter)` in a short summary:
-    * The Klipper SysVinit service will get replaced by a Klipper systemd service
-    * Klipper and Moonraker will use the new log-directory `~/klipper_logs`
-    * The webcamd service gets updated
-    * The webcamd script gets updated and moved from `/root/bin/webcamd` to `/usr/local/bin/webcamd`
-    * The NGINX `upstreams.conf` gets updated to be able to configure up to 4 webcams
-    * The `mainsail.txt` / `fluiddpi.txt` gets moved from `/boot` to `~/klipper_config` and renamed to `webcam.txt`
-    * Symlinks for the webcamd.log and various NGINX logs get created in `~/klipper_config`
-    * Configuration files for Klipper, Moonraker and webcamd get added to `/etc/logrotate.d`
-    * If they still exist, two lines will be removed from the mainsail.cfg or client_macros.cfg macro configurations:\
-    `SAVE_GCODE_STATE NAME=PAUSE_state` and `RESTORE_GCODE_STATE NAME=PAUSE_state`
-* **Please note:**\
-The "CustomPiOS Migration Helper" is intended to only work on "vanilla" MainsailOS and FluiddPi systems. Do not try to migrate a modified MainsailOS or FluiddPi system (for example if you already used KIAUH to re-install services or to set up a multi-instance installation for Klipper / Moonraker). This won't work.
+* Para usuarios de MainsailOS y FluiddPi:\
+MainsailOS y FluiddPi cambiarán el servicio Klipper incluido de SysVinit a systemd probablemente con su próximo lanzamiento. KIAUH ya puede ayudar a migrar versiones antiguas de MainsailOS (0.4.0 y anteriores) y FluiddPi (v1.13.0) para que coincidan con su nueva estructura de servicios, archivos y carpetas para que no tengas que volver a flashear la tarjeta SD de tu Raspberry Pi.\
+En detalle, esto es lo que va a suceder cuando uses el nuevo "Asistente de Migración CustomPiOS" desde el Menú Avanzado\
+`(Menú Principal -> 4 -> Enter -> 10 -> Enter)` en un breve resumen:
+    * El servicio SysVinit de Klipper será reemplazado por un servicio systemd de Klipper
+    * Klipper y Moonraker usarán el nuevo directorio de registros `~/klipper_logs`
+    * El servicio webcamd se actualiza
+    * El script webcamd se actualiza y se mueve de `/root/bin/webcamd` a `/usr/local/bin/webcamd`
+    * El `upstreams.conf` de NGINX se actualiza para poder configurar hasta 4 webcams
+    * El `mainsail.txt` / `fluiddpi.txt` se mueve de `/boot` a `~/klipper_config` y se renombra a `webcam.txt`
+    * Se crean enlaces simbólicos para webcamd.log y varios registros de NGINX en `~/klipper_config`
+    * Se agregan archivos de configuración para Klipper, Moonraker y webcamd a `/etc/logrotate.d`
+    * Si todavía existen, se eliminarán dos líneas de las configuraciones de macros mainsail.cfg o client_macros.cfg:\
+    `SAVE_GCODE_STATE NAME=PAUSE_state` y `RESTORE_GCODE_STATE NAME=PAUSE_state`
+* **Por favor nota:**\
+El "Asistente de Migración CustomPiOS" está destinado a funcionar solo en sistemas MainsailOS y FluiddPi "vanilla". No intentes migrar un sistema MainsailOS o FluiddPi modificado (por ejemplo, si ya usaste KIAUH para reinstalar servicios o configurar una instalación multi-instancia para Klipper / Moonraker). Esto no funcionará.
 
 ### 2021-01-31
 
-* **This is a big one... KIAUH v3.0 is out.**\
-With this update you can now install multiple instances of Klipper, Moonraker, Duet Web Control or Octoprint on the same Pi. This was quite a big rework of the whole script. So bugs can appear but with the help of some testers, i think there shouldn't be any critical ones anymore. In this regards thanks to @lixxbox and @zellneralex for testing.
+* **Este es uno grande... KIAUH v3.0 está aquí.**\
+Con esta actualización ahora puedes instalar múltiples instancias de Klipper, Moonraker, Duet Web Control u Octoprint en la misma Pi. Esta fue una gran reescritura de todo el script. Así que pueden aparecer errores pero con la ayuda de algunos probadores, creo que no debería haber ninguno crítico. En este sentido gracias a @lixxbox y @zellneralex por las pruebas.
 
-* Important changes to how installations are set up now: All components get installed as systemd services. Installation via init.d was dropped completely! This shouldn't affect you at all, since the common linux distributions like RaspberryPi OS or custom distributions like MainsailOS, FluiddPi or OctoPi support both ways of installing services. I just wanted to mention it here.
+* Cambios importantes en cómo se configuran las instalaciones ahora: Todos los componentes se instalan como servicios systemd. ¡La instalación vía init.d se eliminó por completo! Esto no debería afectarte en absoluto, ya que las distribuciones linux comunes como RaspberryPi OS o distribuciones personalizadas como MainsailOS, FluiddPi u OctoPi soportan ambas formas de instalar servicios. Solo quería mencionarlo aquí.
 
-* Now with KIAUH v3.0 and multi-instance installation capabilities, there are some things to point out. You will now need to tell KIAUH where your printers configurations are located when installing Klipper for the first time. Even though it is not recommended, you can change this location with the help of KIAUH and rewrite Klipper and Moonraker to use the new location.
+* Ahora con KIAUH v3.0 y capacidades de instalación multi-instancia, hay algunas cosas que señalar. Ahora necesitarás decirle a KIAUH dónde están ubicadas las configuraciones de tu impresora cuando instales Klipper por primera vez. Aunque no se recomienda, puedes cambiar esta ubicación con la ayuda de KIAUH y reescribir Klipper y Moonraker para usar la nueva ubicación.
 
-* When setting up a multi-instance system, the folder structure will only change slightly. The goal was to keep it as compatible as possible with the custom distributions like mainsailOS and FluiddPi. This should help converting a single-instance setup of mainsailOS/FluiddPi to a multi-instance setup in no time, but keeping single-instance backwards compatibility if needed at a later point in time.
+* Al configurar un sistema multi-instancia, la estructura de carpetas solo cambiará ligeramente. El objetivo era mantenerlo lo más compatible posible con las distribuciones personalizadas como mainsailOS y FluiddPi. Esto debería ayudar a convertir una configuración de una sola instancia de mainsailOS/FluiddPi a una configuración multi-instancia en poco tiempo, pero manteniendo la compatibilidad hacia atrás de una sola instancia si es necesario en un momento posterior.
 
-* The folder structure is as follows when setting up multi-instances:\
-Each printer instance will get its own folder within your configuration location. The decision to this specific structure was made to make it as painless and easy as possible to convert to a multi-instance setup.
-Here is an example:
+* La estructura de carpetas es la siguiente al configurar multi-instancias:\
+Cada instancia de impresora obtendrá su propia carpeta dentro de tu ubicación de configuración. La decisión de esta estructura específica se tomó para hacer la conversión a una configuración multi-instancia lo más indolora y fácil posible.
+Aquí hay un ejemplo:
     ```shell
     /home/<username>
               └── klipper_config
@@ -237,69 +235,69 @@ Here is an example:
                       ├── printer.cfg
                       └── moonraker.conf
     ```
-* Also when setting up multi-instances of each service, the name of each service slightly changes.
-Each service gets its corresponding instance added to the service filename.
+* También al configurar múltiples instancias de cada servicio, el nombre de cada servicio cambia ligeramente.
+Cada servicio obtiene su instancia correspondiente agregada al nombre del archivo de servicio.
 
-    **This only applies to multi-instances! Single instance installations with KIAUH will keep their original names!**
+    **¡Esto solo aplica a múltiples instancias! ¡Las instalaciones de una sola instancia con KIAUH mantendrán sus nombres originales!**
 
-    Corresponding to the filetree example from above that would mean:
+    Correspondiendo al ejemplo del árbol de archivos anterior, esto significaría:
     ```
-    Klipper services:
+    Servicios Klipper:
             --> klipper-1.service
             --> klipper-2.service
             --> klipper-n.service
 
-    Moonraker services:
+    Servicios Moonraker:
             --> moonraker-1.service
             --> moonraker-2.service
             --> moonraker-n.service
     ```
-* The same service file rules from above apply to OctoPrint even though only Klipper and Moonraker are shown in this example.
+* Las mismas reglas de archivos de servicio mencionadas arriba aplican a OctoPrint aunque solo Klipper y Moonraker se muestran en este ejemplo.
 
-* You can start, stop and restart all Klipper, Moonraker and OctoPrint instances from the KIAUH main menu. For doing this, just type "stop klipper", "start moonraker", "restart octoprint" and so on.
+* Puedes iniciar, detener y reiniciar todas las instancias de Klipper, Moonraker y OctoPrint desde el menú principal de KIAUH. Para hacer esto, simplemente escribe "stop klipper", "start moonraker", "restart octoprint" y así sucesivamente.
 
-* KIAUH v3.0 relocated its ini-file. It is now a hidden file in the users home-directory calles `.kiauh.ini`. This has the benefit of keeping all values in that file between possible re-installations of KIAUH. Otherwise that file would be lost.
+* KIAUH v3.0 reubicó su archivo ini. Ahora es un archivo oculto en el directorio home del usuario llamado `.kiauh.ini`. Esto tiene el beneficio de mantener todos los valores en ese archivo entre posibles reinstalaciones de KIAUH. De otro modo ese archivo se perdería.
 
-* The option of adding more trusted clients to the moonraker.conf file was dropped. Since you can edit this file right inside of Mainsail or Fluidd, only some basic entries are made which get you running.
+* Se eliminó la opción de agregar más clientes confiables al archivo moonraker.conf. Ya que puedes editar este archivo directamente dentro de Mainsail o Fluidd, solo se hacen algunas entradas básicas que te permiten funcionar.
 
-* I bet i have missed mentioning other stuff as well because it took me quite some time to re-write many functions. So i just hope you like the new version 😄
+* Apuesto a que me he olvidado de mencionar otras cosas también porque me tomó bastante tiempo reescribir muchas funciones. ¡Así que solo espero que te guste la nueva versión! 😄
 
 ### 2020-11-28
 
-* KIAUH now supports the installation, update and removal of [KlipperScreen](https://github.com/jordanruthe/KlipperScreen). This feature was was provided by [jordanruthe](https://github.com/jordanruthe)! Thank you!
+* ¡KIAUH ahora soporta la instalación, actualización y eliminación de [KlipperScreen](https://github.com/jordanruthe/KlipperScreen)! ¡Esta característica fue proporcionada por [jordanruthe](https://github.com/jordanruthe)! ¡Gracias!
 
 ### 2020-11-18
 
-* Some changes to Fluidd caused a little rework on how KIAUH will install/update Fluidd from now on. Please see the [fluidd v1.0.0-rc0 release notes](https://github.com/cadriel/fluidd/releases/tag/v1.0.0-rc.0) for further information about what modifications to the moonraker.conf file exactly had to be done. In a nutshell, KIAUH will now always patch the required entries to the moonraker.conf if not already there.
+* Algunos cambios en Fluidd causaron una pequeña modificación en cómo KIAUH instalará/actualizará Fluidd de ahora en adelante. Por favor revisa las [notas de lanzamiento de fluidd v1.0.0-rc0](https://github.com/cadriel/fluidd/releases/tag/v1.0.0-rc.0) para más información sobre qué modificaciones exactamente tuvieron que hacerse al archivo moonraker.conf. En resumen, KIAUH ahora siempre agregará las entradas requeridas al moonraker.conf si no están ya presentes.
 
 ### 2020-10-30:
 
-* The user can now choose to install Klipper as a systemd service.
+* El usuario ahora puede elegir instalar Klipper como un servicio systemd.
 
-* The Shell Command extension and `shell_command.py` got renamed to G-Code Shell Command extension and `gcode_shell_command.py`. In case the [pending PR](https://github.com/KevinOConnor/klipper/pull/2173) will be merged in the future, this was an early attempt to dodge possible incompatibilities. The [G-Code Shell Command docs](gcode_shell_command.md) has been updated accordingly.
+* La extensión Shell Command y `shell_command.py` fueron renombrados a extensión G-Code Shell Command y `gcode_shell_command.py`. En caso de que el [PR pendiente](https://github.com/KevinOConnor/klipper/pull/2173) sea fusionado en el futuro, este fue un intento temprano de evitar posibles incompatibilidades. La [documentación de G-Code Shell Command](gcode_shell_command.md) ha sido actualizada en consecuencia.
 
-* The way how KIAUH interacts and writes to the users printer.cfg got changed. Usually KIAUH wrote everything directly into the printer.cfg. The way it will work from now on is, that a new file called `kiauh.cfg` will be created if there is something that needs to be written to the printer.cfg and everything gets written to `kiauh.cfg` instead. The only thing which then gets written to the users printer.cfg is `[include kiauh.cfg]`. This line will be located at the very top of the existing printer.cfg with a little comment as a note. The user can then decide to either keep the `kiauh.cfg` or take its content, places it into the printer.cfg directly and remove the `[include kiauh.cfg]`.
+* La forma en que KIAUH interactúa y escribe en el printer.cfg del usuario ha cambiado. Usualmente KIAUH escribía todo directamente en el printer.cfg. La forma en que funcionará de ahora en adelante es que se creará un nuevo archivo llamado `kiauh.cfg` si hay algo que necesita ser escrito en el printer.cfg y todo se escribirá en `kiauh.cfg` en su lugar. Lo único que entonces se escribe en el printer.cfg del usuario es `[include kiauh.cfg]`. Esta línea estará ubicada en la parte superior del printer.cfg existente con un pequeño comentario como nota. El usuario puede entonces decidir mantener el `kiauh.cfg` o tomar su contenido, colocarlo directamente en el printer.cfg y eliminar el `[include kiauh.cfg]`.
 
-* The `mainsail_macros.cfg` got renamed to `webui_macros.cfg`. Since Mainsail and Fluidd both use the same kind of pause, cancel and resume macros, a more generic name was chosen for the file containing the example macros one can choose to install when installing those webinterfaces.
+* El `mainsail_macros.cfg` fue renombrado a `webui_macros.cfg`. Ya que tanto Mainsail como Fluidd usan el mismo tipo de macros de pausa, cancelación y reanudación, se eligió un nombre más genérico para el archivo que contiene las macros de ejemplo que uno puede elegir instalar al instalar esas interfaces web.
 
 ### 2020-10-10:
 
-* Support for changing the Klipper branch to the moonraker-dev branch from @Arksine has been dropped. Support for Moonraker has been merged into Klipper mainline a long time ago.
+* Se eliminó el soporte para cambiar la rama de Klipper a la rama moonraker-dev de @Arksine. El soporte para Moonraker se ha fusionado en la línea principal de Klipper hace mucho tiempo.
 
-* A new function is available from the main menu. You can now upload your log files to http://paste.c-net.org/ to share them for debugging purposes.
+* Una nueva función está disponible desde el menú principal. Ahora puedes subir tus archivos de registro a http://paste.c-net.org/ para compartirlos con fines de depuración.
 
 ### 2020-10-06:
 
-* Fluidd, a new Klipper interface got added to the list of available installers. At the same time some installation routines have changed or have seen some rework. Changes were made to the installation of NGINX configurations. A method was introduced to change the listen port of a webinterface configuration if there is already another webinterface listening on the default port (80).
+* Fluidd, una nueva interfaz de Klipper se agregó a la lista de instaladores disponibles. Al mismo tiempo algunas rutinas de instalación han cambiado o han visto alguna modificación. Se hicieron cambios en la instalación de configuraciones NGINX. Se introdujo un método para cambiar el puerto de escucha de una configuración de interfaz web si ya hay otra interfaz web escuchando en el puerto predeterminado (80).
 
-* At the moment, the Moonraker installer no longer asks you whether you want to install a web interface too. For now you therefore have to install them with their respective installers. Please report any bugs or issues you encounter.
+* Por el momento, el instalador de Moonraker ya no pregunta si deseas instalar también una interfaz web. Por ahora, por lo tanto, debes instalarlas con sus respectivos instaladores. Por favor reporta cualquier error o problema que encuentres.
 
 ### 2020-09-17:
 
-* The dev-2.0 branch will be abandoned as of today. If you did a checkout to that branch in the past, you have to checkout back to master to receive updates.
+* La rama dev-2.0 será abandonada a partir de hoy. Si hiciste un checkout a esa rama en el pasado, debes hacer checkout de vuelta a master para recibir actualizaciones.
 
 ### 2020-09-12:
 
-* The old [dwc2-for-klipper](https://github.com/Stephan3/dwc2-for-klipper) won't be supported anymore!\
-The is a new, fully rewritten project available: [dwc2-for-klipper-socket](https://github.com/Stephan3/dwc2-for-klipper-socket).\
-The installer of this script also got rewritten to make use of that new project. You will not be able to install or remove the old [dwc2-for-klipper](https://github.com/Stephan3/dwc2-for-klipper) with KIAUH anymore if you updated KIAUH to the newest version.
+* ¡El antiguo [dwc2-for-klipper](https://github.com/Stephan3/dwc2-for-klipper) ya no será soportado!\
+Hay un nuevo proyecto completamente reescrito disponible: [dwc2-for-klipper-socket](https://github.com/Stephan3/dwc2-for-klipper-socket).\
+El instalador de este script también fue reescrito para hacer uso de ese nuevo proyecto. Ya no podrás instalar o eliminar el antiguo [dwc2-for-klipper](https://github.com/Stephan3/dwc2-for-klipper) con KIAUH si actualizaste KIAUH a la versión más reciente.
