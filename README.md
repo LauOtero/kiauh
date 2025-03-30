@@ -1,5 +1,5 @@
 
-# Klipper Installation And Update Helper
+# Ayudante de instalación y actualización de Klipper
 
 Un script de instalación práctico que hace que instalar Klipper (y más) sea una tarea sencilla.
 
