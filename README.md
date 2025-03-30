@@ -74,30 +74,84 @@ Ahora deberías encontrarte en el menú principal de KIAUH. Verás varias accion
 
 ## Fuentes y más información
 
-| **Klipper** | **Moonraker** | **Mainsail** |
-|-------------|---------------|--------------|
-| ![Klipper Logo](https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/klipper-logo.png) | ![Arksine avatar](https://avatars.githubusercontent.com/u/9563098?v=4) | ![Mainsail Logo](https://raw.githubusercontent.com/mainsail-crew/docs/master/assets/img/logo.png) |
-| por [KevinOConnor](https://github.com/KevinOConnor) | por [Arksine](https://github.com/Arksine) | por [mainsail-crew](https://github.com/mainsail-crew) |
+<table align="center">
+<tr>
+    <th><h3><a href="https://github.com/Klipper3d/klipper">Klipper</a></h3></th>
+    <th><h3><a href="https://github.com/Arksine/moonraker">Moonraker</a></h3></th>
+    <th><h3><a href="https://github.com/mainsail-crew/mainsail">Mainsail</a></h3></th>
+</tr>
+<tr>
+    <th><img src="https://raw.githubusercontent.com/Klipper3d/klipper/master/docs/img/klipper-logo.png" alt="Klipper Logo" height="64"></th>
+    <th><img src="https://avatars.githubusercontent.com/u/9563098?v=4" alt="Arksine avatar" height="64"></th>
+    <th><img src="https://raw.githubusercontent.com/mainsail-crew/docs/master/assets/img/logo.png" alt="Mainsail Logo" height="64"></th>
+</tr>
+<tr>
+    <th>by <a href="https://github.com/KevinOConnor">KevinOConnor</a></th>
+    <th>by <a href="https://github.com/Arksine">Arksine</a></th>
+    <th>by <a href="https://github.com/mainsail-crew">mainsail-crew</a></th>
+</tr>
 
-| **Fluidd** | **KlipperScreen** | **OctoPrint** |
-|------------|-------------------|---------------|
-| ![Fluidd Logo](https://raw.githubusercontent.com/fluidd-core/fluidd/master/docs/assets/images/logo.svg) | ![jordanruthe avatar](https://avatars.githubusercontent.com/u/31575189?v=4) | ![OctoPrint Logo](https://raw.githubusercontent.com/OctoPrint/OctoPrint/master/docs/images/octoprint-logo.png) |
-| por [fluidd-core](https://github.com/fluidd-core) | por [jordanruthe](https://github.com/jordanruthe) | por [OctoPrint](https://github.com/OctoPrint) |
+<tr>
+    <th><h3><a href="https://github.com/fluidd-core/fluidd">Fluidd</a></h3></th>
+    <th><h3><a href="https://github.com/jordanruthe/KlipperScreen">KlipperScreen</a></h3></th>
+    <th><h3><a href="https://github.com/OctoPrint/OctoPrint">OctoPrint</a></h3></th>
+</tr>
+<tr>
+    <th><img src="https://raw.githubusercontent.com/fluidd-core/fluidd/master/docs/assets/images/logo.svg" alt="Fluidd Logo" height="64"></th>
+    <th><img src="https://avatars.githubusercontent.com/u/31575189?v=4" alt="jordanruthe avatar" height="64"></th>
+    <th><img src="https://raw.githubusercontent.com/OctoPrint/OctoPrint/master/docs/images/octoprint-logo.png" alt="OctoPrint Logo" height="64"></th>
+</tr>
+<tr>
+    <th>by <a href="https://github.com/fluidd-core">fluidd-core</a></th>
+    <th>by <a href="https://github.com/jordanruthe">jordanruthe</a></th>
+    <th>by <a href="https://github.com/OctoPrint">OctoPrint</a></th>
+</tr>
 
-| **Moonraker-Telegram-Bot** | **PrettyGCode para Klipper** | **Obico para Klipper** |
-|----------------------------|------------------------------|------------------------|
-| ![nlef avatar](https://avatars.githubusercontent.com/u/52351624?v=4) | ![Kragrathea avatar](https://avatars.githubusercontent.com/u/5917231?v=4) | ![Obico logo](https://avatars.githubusercontent.com/u/46323662?s=200&v=4) |
-| por [nlef](https://github.com/nlef) | por [Kragrathea](https://github.com/Kragrathea) | por [Obico](https://github.com/TheSpaghettiDetective) |
+<tr>
+    <th><h3><a href="https://github.com/nlef/moonraker-telegram-bot">Moonraker-Telegram-Bot</a></h3></th>
+    <th><h3><a href="https://github.com/Kragrathea/pgcode">PrettyGCode for Klipper</a></h3></th>
+    <th><h3><a href="https://github.com/TheSpaghettiDetective/moonraker-obico">Obico for Klipper</a></h3></th>
+</tr>
+<tr>
+    <th><img src="https://avatars.githubusercontent.com/u/52351624?v=4" alt="nlef avatar" height="64"></th>
+    <th><img src="https://avatars.githubusercontent.com/u/5917231?v=4" alt="Kragrathea avatar" height="64"></th>
+    <th><img src="https://avatars.githubusercontent.com/u/46323662?s=200&v=4" alt="Obico logo" height="64"></th>
+</tr>
+<tr>
+    <th>by <a href="https://github.com/nlef">nlef</a></th>
+    <th>by <a href="https://github.com/Kragrathea">Kragrathea</a></th>
+    <th>by <a href="https://github.com/TheSpaghettiDetective">Obico</a></th>
+</tr>
 
-| **Mobileraker's Companion** | **OctoEverywhere para Klipper** | **OctoApp para Klipper** |
-|-----------------------------|-------------------------------|--------------------------|
-| ![Mobileraker Logo](https://raw.githubusercontent.com/Clon1998/mobileraker/master/assets/icon/mr_appicon.png) | ![OctoEverywhere Logo](https://octoeverywhere.com/img/logo.svg) | ![OctoApp Logo](https://octoapp.eu/octoapp.webp) |
-| por [Patrick Schmidt](https://github.com/Clon1998) | por [Quinn Damerell](https://github.com/QuinnDamerell) | por [Christian Würthner](https://github.com/crysxd) |
+<tr>
+    <th><h3><a href="https://github.com/Clon1998/mobileraker_companion">Mobileraker's Companion</a></h3></th>
+    <th><h3><a href="https://octoeverywhere.com/?source=kiauh_readme">OctoEverywhere For Klipper</a></h3></th>
+    <th><h3><a href="https://github.com/crysxd/OctoApp-Plugin">OctoApp For Klipper</a></h3></th>
+</tr>
+<tr>
+    <th><a href="https://github.com/Clon1998/mobileraker_companion"><img src="https://raw.githubusercontent.com/Clon1998/mobileraker/master/assets/icon/mr_appicon.png" alt="Mobileraker Logo" height="64"></a></th>
+    <th><a href="https://octoeverywhere.com/?source=kiauh_readme"><img src="https://octoeverywhere.com/img/logo.svg" alt="OctoEverywhere Logo" height="64"></a></th>
+    <th><a href="https://octoapp.eu/?source=kiauh_readme"><img src="https://octoapp.eu/octoapp.webp" alt="OctoApp Logo" height="64"></a></th>
+</tr>
+<tr>
+    <th>by <a href="https://github.com/Clon1998">Patrick Schmidt</a></th>
+    <th>by <a href="https://github.com/QuinnDamerell">Quinn Damerell</a></th>
+    <th>by <a href="https://github.com/crysxd">Christian Würthner</a></th>
+</tr>
 
-| **Klipper-Backup** | **SimplyPrint para Klipper** |
-|--------------------|----------------------------|
-| ![Staubgeborener Avatar](https://avatars.githubusercontent.com/u/28908603?v=4) | ![SimplyPrint Avatar](https://avatars.githubusercontent.com/u/64896552?s=200&v=4) |
-| por [Staubgeborener](https://github.com/Staubgeborener) | por [SimplyPrint](https://github.com/SimplyPrint) |
+<tr>
+    <th><h3><a href="https://github.com/staubgeborener/klipper-backup">Klipper-Backup</a></h3></th>
+    <th><h3><a href="https://simplyprint.io/">SimplyPrint for Klipper</a></h3></th>
+</tr>
+<tr>
+    <th><a href="https://github.com/staubgeborener/klipper-backup"><img src="https://avatars.githubusercontent.com/u/28908603?v=4" alt="Staubgeroner Avatar" height="64"></a></th>
+    <th><a href="https://github.com/SimplyPrint"><img src="https://avatars.githubusercontent.com/u/64896552?s=200&v=4" alt="" height="64"></a></th>
+</tr>
+<tr>
+    <th>by <a href="https://github.com/Staubgeborener">Staubgeborener</a></th>
+    <th>by <a href="https://github.com/SimplyPrint">SimplyPrint</a></th>
+</tr>
+</table>
 
 ## Contribuidores
 
