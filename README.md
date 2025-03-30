@@ -50,7 +50,7 @@ Para descargar este script, es necesario tener instalado git. Si no tienes git i
 * **Paso 2:**  
 Una vez instalado git, usa el siguiente comando para descargar KIAUH en tu directorio home:
   ```shell
-  cd ~ && git clone https://github.com/dw-0/kiauh.git
+  cd ~ && git clone https://github.com/LauOtero/kiauh.git
   ```
 
 * **Paso 3:**  
