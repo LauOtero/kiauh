@@ -8,37 +8,25 @@
 # ======================================================================= #
 import io
 import sys
-import gettext
-import locale
-import os
-from pathlib import Path
 
 from core.logger import Logger
 from core.menus.main_menu import MainMenu
 from core.settings.kiauh_settings import KiauhSettings
 
+from translate.i18n import _
 
 def ensure_encoding() -> None:
     if sys.stdout.encoding == "UTF-8" or not isinstance(sys.stdout, io.TextIOWrapper):
         return
     sys.stdout.reconfigure(encoding="utf-8")
 
-
 def main() -> None:
     try:
-        # Configurar internacionalización
-        localedir = os.path.join(Path(__file__).parent.parent, 'locale')
-        lang = locale.getdefaultlocale()[0]
-        if not lang:
-            lang = 'en'
-        try:
-            trans = gettext.translation('kiauh', localedir=localedir, languages=[lang])
-            trans.install()
-        except FileNotFoundError:
-            gettext.install('kiauh')
-            
         KiauhSettings()
         ensure_encoding()
         MainMenu().run()
     except KeyboardInterrupt:
         Logger.print_ok(_("\nHappy printing!\n"), prefix=False)
+
+if __name__ == "__main__":
+    main()

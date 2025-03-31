@@ -1,27 +1,21 @@
 # ======================================================================= #
 #  Copyright (C) 2020 - 2025 Dominik Willner <th33xitus@gmail.com>        #
 #                                                                         #
-#  Este archivo es parte de KIAUH - Asistente de Instalación y           #
-#  Actualización de Klipper                                              #
+#  This file is part of KIAUH - Klipper Installation And Update Helper    #
 #  https://github.com/dw-0/kiauh                                          #
 #                                                                         #
-#  Este archivo puede ser distribuido bajo los términos de la            #
-#  licencia GNU GPLv3                                                     #
+#  This file may be distributed under the terms of the GNU GPLv3 license  #
 # ======================================================================= #
 
 from __future__ import annotations
-
-import re
 from datetime import datetime
 from pathlib import Path
+import re
 from typing import Dict, List, Literal, Set
 
 from components.klipper.klipper import Klipper
 from components.moonraker.moonraker import Moonraker
-from core.constants import (
-    GLOBAL_DEPS,
-    PRINTER_DATA_BACKUP_DIR,
-)
+from core.constants import GLOBAL_DEPS, PRINTER_DATA_BACKUP_DIR
 from core.logger import DialogType, Logger
 from core.types.color import Color
 from core.types.component_status import ComponentStatus, StatusCode
@@ -31,6 +25,7 @@ from utils.git_utils import (
     get_local_tags,
     get_remote_commit,
     get_repo_name,
+    get_repo_url,
 )
 from utils.instance_utils import get_instances
 from utils.sys_utils import (
@@ -39,13 +34,15 @@ from utils.sys_utils import (
     update_system_package_lists,
 )
 
+from translate.i18n import _
 
 def get_kiauh_version() -> str:
-    tags = get_local_tags(Path(__file__).parent.parent)
-    if not tags:
-        return "unknown"
-    # Validación adicional para asegurar que hay tags
-    return tags[-1] if tags else "unknown"
+    """
+    Helper method to get the current KIAUH version by reading the latest tag
+    :return: string of the latest tag
+    """
+    lastest_tag: str = get_local_tags(Path(__file__).parent.parent)[-1]
+    return lastest_tag
 
 
 def convert_camelcase_to_kebabcase(name: str) -> str:
@@ -54,8 +51,8 @@ def convert_camelcase_to_kebabcase(name: str) -> str:
 
 def get_current_date() -> Dict[Literal["date", "time"], str]:
     """
-    Obtener la fecha actual |
-    :return: Diccionario que contiene un par clave:valor de fecha y hora
+    Get the current date |
+    :return: Dict holding a date and time key:value pair
     """
     now: datetime = datetime.today()
     date: str = now.strftime("%Y%m%d")
@@ -68,10 +65,10 @@ def check_install_dependencies(
     deps: Set[str] | None = None, include_global: bool = True
 ) -> None:
     """
-    Método auxiliar común para verificar si las dependencias están instaladas
-    y si no, instalarlas automáticamente |
-    :param include_global: Si se incluyen o no las dependencias globales
-    :param deps: Lista de nombres de paquetes como cadenas para verificar si están instalados
+    Common helper method to check if dependencies are installed
+    and if not, install them automatically |
+    :param include_global: Wether to include the global dependencies or not
+    :param deps: List of strings of package names to check if installed
     :return: None
     """
     if deps is None:
@@ -82,10 +79,10 @@ def check_install_dependencies(
 
     requirements = check_package_install(deps)
     if requirements:
-        Logger.print_status("Instalando dependencias ...")
-        Logger.print_info("Los siguientes paquetes necesitan instalación:")
+        Logger.print_status(_("Installing dependencies ..."))
+        Logger.print_info(_("The following packages need installation:"))
         for r in requirements:
-            print(Color.apply(f"● {r}", Color.CYAN))
+            print(Color.apply("● {r}", Color.CYAN))
         update_system_package_lists(silent=False)
         install_system_packages(requirements)
 
@@ -97,12 +94,12 @@ def get_install_status(
     files: List[Path] | None = None,
 ) -> ComponentStatus:
     """
-    Método auxiliar para obtener el estado de instalación de los componentes de software
-    :param repo_dir: el directorio del repositorio
-    :param env_dir: el directorio del entorno python
-    :param instance_type: El tipo de componente
-    :param files: Lista de archivos opcionales para verificar su existencia
-    :return: Diccionario con cadena de estado, código de estado y conteo de instancias
+    Helper method to get the installation status of software components
+    :param repo_dir: the repository directory
+    :param env_dir: the python environment directory
+    :param instance_type: The component type
+    :param files: List of optional files to check for existence
+    :return: Dictionary with status string, statuscode and instance count
     """
     from utils.instance_utils import get_instances
 
@@ -127,18 +124,21 @@ def get_install_status(
 
     status: StatusCode
     if checks and all(checks):
-        status = 2  # instalado
+        status = 2  # installed
     elif not any(checks):
-        status = 0  # no instalado
+        status = 0  # not installed
     else:
-        status = 1  # incompleto
+        status = 1  # incomplete
 
     org, repo = get_repo_name(repo_dir)
+    repo_url = get_repo_url(repo_dir) if repo_dir.exists() else None
+
     return ComponentStatus(
         status=status,
         instances=instances,
         owner=org,
         repo=repo,
+        repo_url=repo_url,
         branch=branch,
         local=get_local_commit(repo_dir),
         remote=get_remote_commit(repo_dir),
@@ -146,15 +146,15 @@ def get_install_status(
 
 
 def backup_printer_config_dir() -> None:
-    # importación local para prevenir importación circular
+    # local import to prevent circular import
     from core.backup_manager.backup_manager import BackupManager
 
     instances: List[Klipper] = get_instances(Klipper)
     bm = BackupManager()
 
     if not instances:
-        Logger.print_info("¡No se puede encontrar el directorio para respaldar!")
-        Logger.print_info("¿No hay instancias de Klipper instaladas?")
+        Logger.print_info(_("Unable to find directory to backup!"))
+        Logger.print_info(_("Are there no Klipper instances installed?"))
         return
 
     for instance in instances:
@@ -167,24 +167,22 @@ def backup_printer_config_dir() -> None:
 
 def moonraker_exists(name: str = "") -> List[Moonraker]:
     """
-    Método auxiliar para verificar si existe una instancia de Moonraker
-    :param name: Nombre opcional de un instalador donde se realiza la verificación
-    :return: True si existe al menos una instancia de Moonraker, False en caso contrario
+    Helper method to check if a Moonraker instance exists
+    :param name: Optional name of an installer where the check is performed
+    :return: True if at least one Moonraker instance exists, False otherwise
     """
     mr_instances: List[Moonraker] = get_instances(Moonraker)
 
-    info = (
-        f"{name} requiere que Moonraker esté instalado"
-        if name
-        else "Se requiere una instalación de Moonraker"
+    info = (_("{} requires Moonraker to be installed").format(name)
+                if name else _("A Moonraker installation is required")
     )
 
     if not mr_instances:
         Logger.print_dialog(
             DialogType.WARNING,
             [
-                "¡No se encontraron instancias de Moonraker!",
-                f"{info}. ¡Por favor, instale Moonraker primero!",
+                _("No Moonraker instances found!"),
+                _("{}. Please install Moonraker first!").format(info),
             ],
         )
         return []

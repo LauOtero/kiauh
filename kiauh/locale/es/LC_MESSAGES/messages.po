@@ -1,0 +1,579 @@
+# Spanish translations for PROJECT.
+# Copyright (C) 2025 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2025-03-31 20:47+0200\n"
+"PO-Revision-Date: 2025-03-31 20:47+0200\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: es\n"
+"Language-Team: es <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: kiauh/main.py:29
+msgid ""
+"\n"
+"Happy printing!\n"
+msgstr ""
+
+#: kiauh/procedures/system.py:30
+msgid "Changing the hostname of this system allows you to access an installed\n"
+msgstr ""
+
+#: kiauh/procedures/system.py:31
+msgid "webinterface by simply typing the hostname like this in the browser:"
+msgstr ""
+
+#: kiauh/procedures/system.py:35
+msgid "Example: If you set your hostname to 'my-printer', you can access an\n"
+msgstr ""
+
+#: kiauh/procedures/system.py:36
+msgid "installed webinterface by typing 'http://my-printer.local' in the\n"
+msgstr ""
+
+#: kiauh/procedures/system.py:37
+msgid "browser."
+msgstr ""
+
+#: kiauh/procedures/system.py:39
+msgid "CHANGE SYSTEM HOSTNAME"
+msgstr ""
+
+#: kiauh/procedures/system.py:41
+msgid "Do you want to change the hostname?"
+msgstr ""
+
+#: kiauh/procedures/system.py:47
+msgid "Allowed characters: a-z, 0-9 and '-'"
+msgstr ""
+
+#: kiauh/procedures/system.py:48
+msgid "The name must not contain the following:"
+msgstr ""
+
+#: kiauh/procedures/system.py:50
+msgid "● Any special characters"
+msgstr ""
+
+#: kiauh/procedures/system.py:51
+msgid "● No leading or trailing '-'"
+msgstr ""
+
+#: kiauh/procedures/system.py:55
+msgid "Enter the new hostname"
+msgstr ""
+
+#: kiauh/procedures/system.py:58
+#, python-brace-format
+msgid "Change the hostname to '{}'?"
+msgstr ""
+
+#: kiauh/procedures/system.py:59
+msgid "Aborting hostname change ..."
+msgstr ""
+
+#: kiauh/procedures/system.py:63
+msgid "Changing hostname ..."
+msgstr ""
+
+#: kiauh/procedures/system.py:65
+msgid "Checking for dependencies ..."
+msgstr ""
+
+#: kiauh/procedures/system.py:69
+msgid "Creating backup of hosts file ..."
+msgstr ""
+
+#: kiauh/procedures/system.py:88
+#, python-brace-format
+msgid "Setting hostname to '{}' ..."
+msgstr ""
+
+#: kiauh/procedures/system.py:94
+msgid "Writing new hostname to /etc/hosts ..."
+msgstr ""
+
+#: kiauh/procedures/system.py:100
+msgid "New hostname successfully configured!"
+msgstr ""
+
+#: kiauh/procedures/system.py:101
+msgid "Remember to reboot for the changes to take effect!\n"
+msgstr ""
+
+#: kiauh/procedures/system.py:104
+#, python-brace-format
+msgid "Error during change hostname procedure: {}"
+msgstr ""
+
+#: kiauh/utils/common.py:82
+msgid "Installing dependencies ..."
+msgstr ""
+
+#: kiauh/utils/common.py:83
+msgid "The following packages need installation:"
+msgstr ""
+
+#: kiauh/utils/common.py:156
+msgid "Unable to find directory to backup!"
+msgstr ""
+
+#: kiauh/utils/common.py:157
+msgid "Are there no Klipper instances installed?"
+msgstr ""
+
+#: kiauh/utils/common.py:176
+#, python-brace-format
+msgid "{} requires Moonraker to be installed"
+msgstr ""
+
+#: kiauh/utils/common.py:177
+msgid "A Moonraker installation is required"
+msgstr ""
+
+#: kiauh/utils/common.py:184
+msgid "No Moonraker instances found!"
+msgstr ""
+
+#: kiauh/utils/common.py:185
+#, python-brace-format
+msgid "{}. Please install Moonraker first!"
+msgstr ""
+
+#: kiauh/utils/config_utils.py:37
+#, python-brace-format
+msgid "Add section '[{}]' to '{}' ..."
+msgstr ""
+
+#: kiauh/utils/config_utils.py:40 kiauh/utils/config_utils.py:92
+#, python-brace-format
+msgid "'{}' not found!"
+msgstr ""
+
+#: kiauh/utils/config_utils.py:46
+msgid "Section already exist. Skipped ..."
+msgstr ""
+
+#: kiauh/utils/config_utils.py:89
+#, python-brace-format
+msgid "Remove section '[{}]' from '{}' ..."
+msgstr ""
+
+#: kiauh/utils/config_utils.py:98
+msgid "Section does not exist. Skipped ..."
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:54
+#, python-brace-format
+msgid "Failed to create symlink: {}"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:70 kiauh/utils/fs_utils.py:96
+#, python-brace-format
+msgid "File '{}' does not exist. Skipped ..."
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:74 kiauh/utils/fs_utils.py:106
+#: kiauh/utils/fs_utils.py:113
+#, python-brace-format
+msgid "File '{}' was successfully removed!"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:77
+#, python-brace-format
+msgid "Error removing file '{}': {}"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:88
+#, python-brace-format
+msgid "Cannot remove file {}: {e.stderr.decode()}"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:104
+#, python-brace-format
+msgid "File '{}' is neither a file nor a directory!"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:109
+#, python-brace-format
+msgid ""
+"Unable to delete '{}':\n"
+"{}"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:116
+#, python-brace-format
+msgid ""
+"Error deleting '{}' with sudo:\n"
+"{}"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:117
+msgid "Remove this directory manually!"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:138
+#, python-brace-format
+msgid "Created directory '{}'!"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:140
+#, python-brace-format
+msgid "Error creating directories: {}"
+msgstr ""
+
+#: kiauh/utils/fs_utils.py:161
+#, python-brace-format
+msgid "printer_{}_data"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:38
+#, python-brace-format
+msgid "Cloning repository from '{}'"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:42
+#, python-brace-format
+msgid "'{}' already exists. Overwrite?"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:44
+msgid "Skip cloning of repository ..."
+msgstr ""
+
+#: kiauh/utils/git_utils.py:54
+msgid "An unexpected error occured during cloning of the repository."
+msgstr ""
+
+#: kiauh/utils/git_utils.py:58 kiauh/utils/git_utils.py:59
+#, python-brace-format
+msgid "Error removing existing repository: {}"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:69
+msgid "Updating repository ..."
+msgstr ""
+
+#: kiauh/utils/git_utils.py:73
+msgid "An unexpected error occured during updating the repository."
+msgstr ""
+
+#: kiauh/utils/git_utils.py:160
+#, python-brace-format
+msgid "Error retrieving tags: HTTP status code {}"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:167
+#, python-brace-format
+msgid "Error while processing the response: {}"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:201
+msgid "Error while getting the latest unstable tag"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:282
+#, python-brace-format
+msgid "Error cloning repository {}: {}"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:295
+msgid "Checkout successful!"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:297
+#, python-brace-format
+msgid "Error checking out branch {}: {}"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:307
+#, python-brace-format
+msgid "Error on git pull: {}"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:318
+msgid "Do not continue if you have ongoing prints!"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:320
+#, python-brace-format
+msgid "All currently running {} services will be stopped!"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:323
+#, python-brace-format
+msgid "Roll back {} commit{}"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:327
+msgid "Aborting roll back ..."
+msgstr ""
+
+#: kiauh/utils/git_utils.py:335
+#, python-brace-format
+msgid "Rolled back {} commits!"
+msgstr ""
+
+#: kiauh/utils/git_utils.py:337
+#, python-brace-format
+msgid ""
+"An error occured during repo rollback:\n"
+"{}"
+msgstr ""
+
+#: kiauh/utils/input_utils.py:28
+msgid "y"
+msgstr ""
+
+#: kiauh/utils/input_utils.py:28
+msgid "yes"
+msgstr ""
+
+#: kiauh/utils/input_utils.py:33
+msgid "(Y/n)"
+msgstr ""
+
+#: kiauh/utils/input_utils.py:36
+msgid "(y/N)"
+msgstr ""
+
+#: kiauh/utils/input_utils.py:113
+msgid "Input must not be empty!"
+msgstr ""
+
+#: kiauh/utils/input_utils.py:117
+msgid "This value is already in use/reserved."
+msgstr ""
+
+#: kiauh/utils/input_utils.py:146
+msgid "Invalid option! Please select a valid option."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:57
+msgid "A critical error has occured. KIAUH was terminated."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:69
+msgid "Versioncheck failed!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:70
+#, python-brace-format
+msgid "Python {}.{} or newer required."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:118
+msgid "Setup of virtualenv successful!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:121
+#, python-brace-format
+msgid ""
+"Error setting up virtualenv:\n"
+"{}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:125
+msgid "Virtualenv already exists. Re-create?"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:127
+msgid "Skipping re-creation of virtualenv ..."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:135
+#, python-brace-format
+msgid "Error removing existing virtualenv: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:146
+msgid "Updating pip ..."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:152
+msgid "Error updating pip! Not found."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:158
+msgid "Updating pip failed!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:161
+msgid "Updating pip successful!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:166
+#, python-brace-format
+msgid ""
+"Error updating pip:\n"
+"{}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:181 kiauh/utils/sys_utils.py:213
+msgid "Installing Python requirements ..."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:192 kiauh/utils/sys_utils.py:224
+msgid "Installing Python requirements failed!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:194 kiauh/utils/sys_utils.py:226
+msgid "Installing Python requirements successful!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:197 kiauh/utils/sys_utils.py:229
+#, python-brace-format
+msgid "Error installing Python requirements: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:257
+msgid "Updating package list..."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:267
+msgid "Updating system package list failed!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:270
+msgid "System package list update successful!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:272
+#, python-brace-format
+msgid ""
+"Error updating system package list:\n"
+"{}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:292
+#, python-brace-format
+msgid "Error reading upgradable packages: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:328
+msgid "Packages successfully installed."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:330
+#, python-brace-format
+msgid ""
+"Error installing packages:\n"
+"{}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:346
+msgid "Packages successfully upgraded."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:348
+#, python-brace-format
+msgid ""
+"Error upgrading packages:\n"
+"{}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:387
+#, python-brace-format
+msgid "Download failed! HTTP error occured: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:390
+#, python-brace-format
+msgid "Download failed! URL error occured: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:393
+#, python-brace-format
+msgid "Download failed! An error occured: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:410
+#, python-brace-format
+msgid ""
+"\r"
+"Downloading: [{}{}]{}% ({}/{}MB)"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:429
+msgid "Granting NGINX the required permissions ..."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:431
+msgid "Permissions granted."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:446
+#, python-brace-format
+msgid "Failed to {} {}: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:454
+#, python-brace-format
+msgid "Failed to run {}: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:514
+#, python-brace-format
+msgid "Service file created: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:516
+#, python-brace-format
+msgid "Error creating service file: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:530
+#, python-brace-format
+msgid "Env file created: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:532
+#, python-brace-format
+msgid "Error creating env file: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:544
+#, python-brace-format
+msgid "service_name '{}' must end with '.service'"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:548
+#, python-brace-format
+msgid "Service '{}' does not exist! Skipped ..."
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:557
+#, python-brace-format
+msgid "{} successfully removed!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:559
+#, python-brace-format
+msgid "Error removing {}: {}"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:582
+msgid "Error reading distro info!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:600
+msgid "Error reading distro id!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:602
+msgid "Error reading distro version!"
+msgstr ""
+
+#: kiauh/utils/sys_utils.py:633
+msgid "Could not determine system timezone, using UTC"
+msgstr ""
+

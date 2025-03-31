@@ -1,15 +1,15 @@
 # ======================================================================= #
 #  Copyright (C) 2020 - 2025 Dominik Willner <th33xitus@gmail.com>        #
 #                                                                         #
-#  Este archivo es parte de KIAUH - Klipper Installation And Update Helper #
+#  This file is part of KIAUH - Klipper Installation And Update Helper    #
 #  https://github.com/dw-0/kiauh                                          #
 #                                                                         #
-#  Este archivo puede ser distribuido bajo los términos de GNU GPLv3      #
+#  This file may be distributed under the terms of the GNU GPLv3 license  #
 # ======================================================================= #
 from __future__ import annotations
 
-from pathlib import Path
 import shutil
+from pathlib import Path
 from typing import Literal
 
 from components.klipper import (
@@ -27,11 +27,12 @@ from components.moonraker import (
     MOONRAKER_REQ_FILE,
 )
 from components.moonraker.moonraker import Moonraker
-from components.moonraker.moonraker_setup import install_moonraker_packages
+from components.moonraker.services.moonraker_setup_service import (
+    install_moonraker_packages,
+)
 from core.backup_manager.backup_manager import BackupManager, BackupManagerException
 from core.instance_manager.instance_manager import InstanceManager
 from core.logger import Logger
-from core.settings.kiauh_settings import RepoSettings
 from utils.git_utils import GitException, get_repo_name, git_clone_wrapper
 from utils.instance_utils import get_instances
 from utils.sys_utils import (
@@ -46,7 +47,7 @@ class RepoSwitchFailedException(Exception):
 
 
 def run_switch_repo_routine(
-    name: Literal["klipper", "moonraker"], repo_settings: RepoSettings
+    name: Literal["klipper", "moonraker"], repo_url: str, branch: str
 ) -> None:
     repo_dir: Path = KLIPPER_DIR if name == "klipper" else MOONRAKER_DIR
     env_dir: Path = KLIPPER_ENV_DIR if name == "klipper" else MOONRAKER_ENV_DIR
@@ -54,8 +55,8 @@ def run_switch_repo_routine(
     backup_dir: Path = KLIPPER_BACKUP_DIR if name == "klipper" else MOONRAKER_BACKUP_DIR
     _type = Klipper if name == "klipper" else Moonraker
 
-    # paso 1: detener todas las instancias
-    Logger.print_status(f"Deteniendo todas las instancias de {_type.__name__} ...")
+    # step 1: stop all instances
+    Logger.print_status(f"Stopping all {_type.__name__} instances ...")
     instances = get_instances(_type)
     InstanceManager.stop_all(instances)
 
@@ -63,7 +64,7 @@ def run_switch_repo_routine(
     env_dir_backup_path: Path | None = None
 
     try:
-        # paso 2: respaldar repositorio y entorno antiguos
+        # step 2: backup old repo and env
         org, _ = get_repo_name(repo_dir)
         backup_dir = backup_dir.joinpath(org)
         bm = BackupManager()
@@ -78,41 +79,37 @@ def run_switch_repo_routine(
             backup_dir,
         )
 
-        # paso 3: leer URL del repositorio y rama desde configuración
-        repo_url = repo_settings.repo_url
-        branch = repo_settings.branch
-
         if not (repo_url or branch):
-            error = f"¡URL del repositorio ({repo_url}) o rama ({branch}) inválidos!"
+            error = f"Invalid repository URL ({repo_url}) or branch ({branch})!"
             raise ValueError(error)
 
-        # paso 4: clonar nuevo repositorio
+        # step 4: clone new repo
         git_clone_wrapper(repo_url, repo_dir, branch, force=True)
 
-        # paso 5: instalar dependencias del sistema operativo
+        # step 5: install os dependencies
         if name == "klipper":
             install_klipper_packages()
         elif name == "moonraker":
             install_moonraker_packages()
 
-        # paso 6: recrear entorno virtual de python
-        Logger.print_status(f"Recreando entorno virtual de {_type.__name__} ...")
+        # step 6: recreate python virtualenv
+        Logger.print_status(f"Recreating {_type.__name__} virtualenv ...")
         if not create_python_venv(env_dir, force=True):
-            raise GitException(f"Error al recrear entorno virtual para {_type.__name__}")
+            raise GitException(f"Failed to recreate virtualenv for {_type.__name__}")
         else:
             install_python_requirements(env_dir, req_file)
 
-        Logger.print_ok(f"¡Cambiado a {repo_url} en la rama {branch}!")
+        Logger.print_ok(f"Switched to {repo_url} at branch {branch}!")
 
     except BackupManagerException as e:
-        Logger.print_error(f"Error durante el respaldo del repositorio: {e}")
+        Logger.print_error(f"Error during backup of repository: {e}")
         raise RepoSwitchFailedException(e)
 
     except (GitException, VenvCreationFailedException) as e:
-        # si algo sale mal durante la clonación o recreación del entorno virtual,
-        # restauramos el respaldo del repositorio y entorno
-        Logger.print_error(f"Error durante el cambio de repositorio: {e}", start="\n")
-        Logger.print_status(f"Restaurando último respaldo de {_type.__name__} ...")
+        # if something goes wrong during cloning or recreating the virtualenv,
+        # we restore the backup of the repo and env
+        Logger.print_error(f"Error during repository switch: {e}", start="\n")
+        Logger.print_status(f"Restoring last backup of {_type.__name__} ...")
         _restore_repo_backup(
             _type.__name__,
             env_dir,
@@ -122,10 +119,10 @@ def run_switch_repo_routine(
         )
 
     except RepoSwitchFailedException as e:
-        Logger.print_error(f"Algo salió mal: {e}")
+        Logger.print_error(f"Something went wrong: {e}")
         return
 
-    Logger.print_status(f"Reiniciando todas las instancias de {_type.__name__} ...")
+    Logger.print_status(f"Restarting all {_type.__name__} instances ...")
     InstanceManager.start_all(instances)
 
 
@@ -136,9 +133,10 @@ def _restore_repo_backup(
     repo_dir: Path,
     repo_dir_backup_path: Path | None,
 ) -> None:
+    # if repo_dir_backup_path is not None and env_dir_backup_path is not None:
     if not repo_dir_backup_path or not env_dir_backup_path:
         raise RepoSwitchFailedException(
-            f"¡No se puede restaurar el respaldo de {name}! ¡La ruta del directorio de respaldos es None!"
+            f"Unable to restore backup of {name}! Path of backups directory is None!"
         )
 
     try:
@@ -148,6 +146,6 @@ def _restore_repo_backup(
         if env_dir.exists():
             shutil.rmtree(env_dir)
             shutil.copytree(env_dir_backup_path, env_dir)
-        Logger.print_warn(f"¡Respaldo de {name} restaurado exitosamente!")
+        Logger.print_warn(f"Restored backup of {name} successfully!")
     except Exception as e:
-        raise RepoSwitchFailedException(f"Error al restaurar respaldo: {e}")
+        raise RepoSwitchFailedException(f"Error restoring backup: {e}")

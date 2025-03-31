@@ -1,10 +1,10 @@
 # ======================================================================= #
 #  Copyright (C) 2020 - 2025 Dominik Willner <th33xitus@gmail.com>        #
 #                                                                         #
-#  Este archivo es parte de KIAUH - Klipper Installation And Update Helper #
+#  This file is part of KIAUH - Klipper Installation And Update Helper    #
 #  https://github.com/dw-0/kiauh                                          #
 #                                                                         #
-#  Este archivo puede ser distribuido bajo los términos de GNU GPLv3      #
+#  This file may be distributed under the terms of the GNU GPLv3 license  #
 # ======================================================================= #
 from __future__ import annotations
 
@@ -19,25 +19,31 @@ from core.submodules.simple_config_parser.src.simple_config_parser.simple_config
 )
 from utils.instance_type import InstanceType
 
-OpcionConfig = Tuple[str, str]
+from translate.i18n import _
 
-def add_config_section(section: str, instances: List[InstanceType],
-                       options: List[ConfigOption] | None = None) -> None:
+ConfigOption = Tuple[str, str]
+
+
+def add_config_section(
+    section: str,
+    instances: List[InstanceType],
+    options: List[ConfigOption] | None = None,
+) -> None:
     if not instances:
         return
 
     for instance in instances:
         cfg_file = instance.cfg_file
-        Logger.print_status(f"Agregando sección '[{seccion}]' a '{archivo_cfg}' ...")
+        Logger.print_status(_("Add section '[{}]' to '{}' ...").format(section, cfg_file))
 
         if not Path(cfg_file).exists():
-            Logger.print_warn(f"'{cfg_file}' no encontrado!!")
+            Logger.print_warn(_("'{}' not found!").format(cfg_file))
             continue
 
         scp = SimpleConfigParser()
         scp.read_file(cfg_file)
         if scp.has_section(section):
-            Logger.print_info("La sección ya existe. Omitiendo ...")
+            Logger.print_info(_("Section already exist. Skipped ..."))
             continue
 
         scp.add_section(section)
@@ -74,20 +80,22 @@ def add_config_section_at_top(section: str, instances: List[InstanceType]) -> No
         Logger.print_ok("OK!")
 
 
-def remove_config_section(section: str, instances: List[InstanceType]) -> List[InstanceType]:
-    removed_from: List[instances] = []
+def remove_config_section(
+    section: str, instances: List[InstanceType]
+) -> List[InstanceType]:
+    removed_from: List[InstanceType] = []
     for instance in instances:
         cfg_file = instance.cfg_file
-        Logger.print_status(f"Eliminando sección '[{section}]' de '{cfg_file}' ...")
+        Logger.print_status(_("Remove section '[{}]' from '{}' ...").format(section, cfg_file))
 
         if not Path(cfg_file).exists():
-            Logger.print_warn(f"'{cfg_file}' no encontrado!")
+            Logger.print_warn(_("'{}' not found!").format(cfg_file))
             continue
 
         scp = SimpleConfigParser()
         scp.read_file(cfg_file)
         if not scp.has_section(section):
-            Logger.print_info("La sección no existe. Omitiendo ...")
+            Logger.print_info(_("Section does not exist. Skipped ..."))
             continue
 
         scp.remove_section(section)
