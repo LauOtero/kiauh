@@ -99,7 +99,8 @@ function launch_kiauh_v5() {
 
 function launch_kiauh_v6() {
   local entrypoint
-
+  python3 "${entrypoint}/kiauh.py"
+  
   if ! command -v python3 &>/dev/null || [[ $(python3 -V | cut -d " " -f2 | cut -d "." -f2) -lt 8 ]]; then
     echo "Python 3.8 or higher is not installed!"
     echo "Please install Python 3.8 or higher and try again."

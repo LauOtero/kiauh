@@ -332,7 +332,7 @@ def rollback_repository(repo_dir: Path, instance: Type[InstanceType]) -> None:
     try:
         cmd: list[str] = ["git", "reset", "--hard", f"HEAD~{amount}"]
         run(args=cmd, cwd=repo_dir, check=True, stdout=PIPE, stderr=PIPE)
-        Logger.print_ok(msg=_(message="Rolled back {} commits!").format(amount)), start="\n"
+        Logger.print_ok(msg=_(message="Rolled back {} commits!").format(amount), start="\n")
     except CalledProcessError as e:
         Logger.print_error(msg=_(message="An error occured during repo rollback:\n{}").format(e))
 

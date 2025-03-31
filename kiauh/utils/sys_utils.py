@@ -226,7 +226,7 @@ def install_python_packages(target: Path, packages: List[str]) -> None:
         Logger.print_ok(_("Installing Python requirements successful!"))
 
     except Exception as e:
-        log = _("Error installing Python requirements: {}").format(e))
+        log = _("Error installing Python requirements: {}").format(e)
         Logger.print_error(log)
         raise VenvCreationFailedException(log)
 
